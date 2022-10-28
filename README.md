@@ -37,33 +37,33 @@ Login/ Register. After logging in you begin the resource management phase. Durin
 
 
 MVPs:
-Need to be able to register a new profile
-Need to be able to log into an existing profile
-Need to store existing user’s information
-Need to be able to edit a user’s profile.
-Need to generate a horde(savings) account and a purse(checkings) account upon user registration.
-Need to keep record of how much is deposited into each account
-Need to keep record of how much is withdrawn from each account.
-Need to be able to transfer money from one account to another
-Need to be able to transfer money to another user. (to strengthen/weaken troop morale)
-Need to be able to have a supervisor add money to your horde account. (Dark Lord)
-Need to be able to have a supervisor remove money from your account. (Dark Lord)
-Need to be able to compare a profile’s account to a different profile’s account (raids)
+- Need to be able to register a new profile
+- Need to be able to log into an existing profile
+- Need to store existing user’s information
+- Need to be able to edit a user’s profile.
+- Need to generate a horde(savings) account and a purse(checkings) account upon user registration.
+- Need to keep record of how much is deposited into each account
+- Need to keep record of how much is withdrawn from each account.
+- Need to be able to transfer money from one account to another
+- Need to be able to transfer money to another user. (to strengthen/weaken troop morale)
+- Need to be able to have a supervisor add money to your horde account. (Dark Lord)
+- Need to be able to have a supervisor remove money from your account. (Dark Lord)
+- Need to be able to compare a profile’s account to a different profile’s account (raids)
 
 
 Stretch Goals:
-Be able to update account/profile information (password, profile picture etc)
-Be able to change color scheme from normal mode to the dark mode (FE)
-Implement Monthly System (Time Limit to regain funds, monthly allowance/upkeep)
-Be able to invest your money (hire a dragon/ Buff troops)
-Be able to use JWT Authentication
-Be able to reset passwords 
-Be able to see who sends you money (Buyable)
-Request a loan from the supervisor (Dark Lord)
-Implement Sorcery (Unknown Effects)
-Be able to perform evil deeds to get various bonuses.(Ex: scouting/pillaging)
-Be able to rank up and rank down your minion ranking.(based on raid successes)
-Morale System.(affects raid success rate)
+- Be able to update account/profile information (password, profile picture etc)
+- Be able to change color scheme from normal mode to the dark mode (FE)
+- Implement Monthly System (Time Limit to regain funds, monthly allowance/upkeep)
+- Be able to invest your money (hire a dragon/ Buff troops)
+- Be able to use JWT Authentication
+- Be able to reset passwords 
+- Be able to see who sends you money (Buyable)
+- Request a loan from the supervisor (Dark Lord)
+- Implement Sorcery (Unknown Effects)
+- Be able to perform evil deeds to get various bonuses.(Ex: scouting/pillaging)
+- Be able to rank up and rank down your minion ranking.(based on raid successes)
+- Morale System.(affects raid success rate)
 
 
 External API: Robofriends (to generate profile pics)
