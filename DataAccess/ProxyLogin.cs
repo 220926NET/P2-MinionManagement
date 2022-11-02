@@ -5,7 +5,7 @@ namespace DataAccess
 {
     public class ProxyLogin
     {
-           SqlConnection connection = new SqlConnection("");
+           SqlConnection connection = new SqlConnection("Server=tcp:220926netp2dbs.database.windows.net,1433;Initial Catalog=DarkLordArmyDB;Persist Security Info=False;User ID=thelordaccount;Password=iamy@rl0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
            public async Task<ProxyUserProfile> LoginAsync(string name, string Password) {
 ProxyUserProfile Verify = new ProxyUserProfile();
    await Task.Delay(1000);
@@ -19,43 +19,34 @@ ProxyUserProfile Verify = new ProxyUserProfile();
                     while(reader.Read()) 
                         {
                             string username = (string) reader["UserName"];
-                            string password = (string) reader["PassWord"];
-                          
-                        
+                            string password = (string) reader["PassWord"];            
                     Verify.Verify(username, password);
                     }
                     }
-
-
-
-                SqlCommand cm = new SqlCommand($"SELECT ID FROM User_Profiles WHERE UserName = '{Verify.UserName}' AND PassWord = '{Verify.Password}", connection);
+                  connection.Close();   
+                  connection.Open();
+                SqlCommand cm = new SqlCommand($"SELECT * FROM User_Profiles WHERE UserName = '{Verify.UserName}'", connection);
                 SqlDataReader reader2 = cm.ExecuteReader();
                     if(reader2.HasRows)
                     {
                     while(reader2.Read()) 
                         {
-                            int id = (int) reader["Id"];
-                    //       Snapshot.acceptValues(User.UserName, User.Password, User.FirstName, User.LastName, 0, id);                       
+                            int id = (int) reader2["Id"];
+                            string UserName = (string) reader2["UserName"];
+                            string FirstName = (string) reader2["FirstName"];
+                            string LastName = (string) reader2["LastName"];
+                            int troop = (int) reader2["TroopCount"];
+                    Verify.storeInformation(UserName, FirstName, LastName, troop, id);                       
                         }
                     }
-                  
-
-
-
-
-
-
-
                 }
-
-
                     catch(SqlException){
                     throw;
                 }
                     finally{
                     connection.Close();
                 }
-                return Card;
+                return Verify;
    }
     }
 }

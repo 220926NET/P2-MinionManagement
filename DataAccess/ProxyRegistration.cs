@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Services
 {
@@ -8,6 +9,13 @@ namespace Services
     SqlConnection connection = new SqlConnection("");
 
     public async Task<ProxyUserProfile> RegisterAsync(ProxyUserProfile User) {
+
+
+
+PasswordHasher<ProxyUserProfile> P = new PasswordHasher<ProxyUserProfile>();
+
+P.HashPassword
+
 ProxyUserProfile Snapshot = new ProxyUserProfile();
 await Task.Delay(1000);
 try

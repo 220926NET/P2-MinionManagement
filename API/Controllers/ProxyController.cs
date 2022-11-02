@@ -12,7 +12,7 @@ namespace API.Controllers
         [HttpGet("LoginMinion/{username}/{password}")]
         public async Task<ActionResult<ProxyUserProfile>> LoginUser(string username, string password) {
                ProxyUserProfile ret = await service.LoginUser(username, password);
-            return Created("Made it", null);
+            return Created("Made it", ret);
         }
          [HttpPost("RegisterMinion")]
         public async Task<ActionResult<ProxyUserProfile>> RegisterUser(ProxyUserProfile user) {

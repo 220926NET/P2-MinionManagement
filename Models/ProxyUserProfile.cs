@@ -83,6 +83,14 @@ namespace Models
         TroopCount = value5;
         Id = value6;
 }
+
+public void storeInformation(string value, string value3, string value4, int value5, int value6) {
+        UserName = value;
+        FirstName = value3;
+        LastName = value4;
+        TroopCount = value5;
+        Id = value6;
+}
  
     public void Verify(string value, string value2) {
         UserName = value;
