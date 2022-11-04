@@ -5,7 +5,7 @@ namespace DataAccess
 {
     public class ProxyLogin
     {
-           SqlConnection connection = new SqlConnection("Server=tcp:220926netp2dbs.database.windows.net,1433;Initial Catalog=DarkLordArmyDB;Persist Security Info=False;User ID=thelordaccount;Password=iamy@rl0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+           SqlConnection connection = new SqlConnection("");
            public async Task<ProxyUserProfile> LoginAsync(string name, string Password) {
 ProxyUserProfile Verify = new ProxyUserProfile();
    await Task.Delay(1000);
