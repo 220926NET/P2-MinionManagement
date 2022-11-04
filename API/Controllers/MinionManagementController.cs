@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Web.HttpContext;
 using Models;
 
 
@@ -36,7 +37,10 @@ public class MinionManagementController : ControllerBase
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
 
+                // create response
+                HttpContext.Current.Response.Header.Add("affect-row",1);
                 // correct status code 204
+
                 return NoContent();
             }
             else{
