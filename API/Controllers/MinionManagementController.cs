@@ -12,30 +12,29 @@ public class MinionManagementController : ControllerBase
 
 
     private readonly ILogger<MinionManagementController> _logger;
-    private readonly AccountTransactionService _AccTranservice;
-    private readonly AccountCreateService _AccCreatservice;
+    private readonly AdminDistributeMoneyService _adminService;
 
     public MinionManagementController(ILogger<MinionManagementController> logger)
     {
         _logger = logger;
-        _AccTranservice = new AccountTransactionService();
-        _AccCreatservice = new AccountCreateService();
+        _adminService = new AdminDistributeMoneyService();
+        
     }
 
-    [HttpPut("UpdateAccountAmount")]
-    public ActionResult<int> UpdateAccountAmount(Transaction transaction){
+    [HttpPost("admin/distributemoney/{amount}")]
+    public ActionResult<int> UpdateAccountAmount(double amount){
 
-        //check if Model is valid
-        if(!ModelState.IsValid){
+        //check if amount input is valid
+        if(amount <= 0){
             
-            UnprocessableEntity(transaction);
+            UnprocessableEntity("Amount must be larget than 0");
         }
         else{
 
-            //Model is valid, then call ToUpdateAccountAmount function from AccountService
-            int returnAffectedRows = _AccTranservice.ToUpdateAccountAmount(transaction);
-            // correct respond will be 2 affected rows (sender's and received's amount changed)
-            if(returnAffectedRows == 2){
+            //Model is valid, then call Distribute Money to all user function
+            int returnAffectedRows = _adminService.DistributeMoneyToAllUsers(amount);
+            // correct respond will be  at least one affected row (update successfully)
+            if(returnAffectedRows > 0){
 
                 // correct status code 204
                 return NoContent();
@@ -50,30 +49,6 @@ public class MinionManagementController : ControllerBase
         return NotFound();
     }
 
-
-    [HttpPost("CreateAccount")]
-    public ActionResult CreateAccount(Account account){
-
-        if(!ModelState.IsValid){
-
-            UnprocessableEntity(account);
-        }
-        else{
-
-            int returnAffectedRows = _AccCreatservice.ToCreateAccount(account);
-
-            if(returnAffectedRows == 1){
-
-                return Created("", "Created Successfully");
-            }
-            else{
-
-                return BadRequest("Faliure");
-            }
-        }
-
-        return BadRequest("Outside Conditional");
-    }
 
 
 
