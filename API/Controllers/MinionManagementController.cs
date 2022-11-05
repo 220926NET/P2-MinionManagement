@@ -10,29 +10,32 @@ namespace API.Controllers;
 public class MinionManagementController : ControllerBase
 {
 
-
+    // Injection for Service layers
     private readonly ILogger<MinionManagementController> _logger;
-    private readonly AdminDistributeMoneyService _adminService;
+    private readonly AdminAddMoneyService _adminAddService;
+    private readonly AdminRemoveMoneyService _adminRemoveService;
 
     public MinionManagementController(ILogger<MinionManagementController> logger)
     {
         _logger = logger;
-        _adminService = new AdminDistributeMoneyService();
+        _adminAddService = new AdminAddMoneyService();
+        _adminRemoveService = new AdminRemoveMoneyService();
+
         
     }
 
-    [HttpPost("admin/addmoney/alluser/{amount}")]
-    public ActionResult<int> UpdateAccountAmount(double amount){
+    [HttpPost("admin/addmoney/allusers/{amount}")]
+    public ActionResult<int> AdminAddMoneyToAllUsers(double amount){
 
         //check if amount input is valid
-        if(amount == 0){
+        if(amount <= 0){
             
-            UnprocessableEntity("Amount must be  0");
+            UnprocessableEntity("Amount must be greate than 0");
         }
         else{
 
             //Model is valid, then call Distribute Money to all user function
-            int returnAffectedRows = _adminService.DistributeMoneyToAllUsers(amount);
+            int returnAffectedRows = _adminAddService.AddMoneyToAllUsers(amount);
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
 
@@ -48,10 +51,39 @@ public class MinionManagementController : ControllerBase
             }
         }
 
-        return NotFound();
+        return BadRequest();
     }
 
 
+    [HttpPost("admin/removemoney/allusers/{amount}")]
+    public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble (double amount){
+
+        //check if amount input is valid
+        if(amount <= 0){
+            
+            UnprocessableEntity("Amount must be  0");
+        }
+        else{
+
+            //Model is valid, then call Distribute Money to all user function
+            int returnAffectedRows = _adminRemoveService.RemoveMoneyFromAllUsers(amount);
+            // correct respond will be  at least one affected row (update successfully)
+            if(returnAffectedRows > 0){
+
+                //create reponse header
+                HttpContext.Response.Headers.Add("Role", "Admin");
+                // correct status code 201
+                return Created("","Action Successfully");
+            }
+            else{
+
+                // incorrect state code 400
+                return BadRequest("Something wrong");
+            }
+        }
+
+        return BadRequest();
+    }
 
 
 }
