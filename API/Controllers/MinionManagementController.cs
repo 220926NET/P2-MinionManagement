@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using System.Web.HttpContext;
 using Models;
 
 
@@ -22,13 +21,13 @@ public class MinionManagementController : ControllerBase
         
     }
 
-    [HttpPost("admin/distributemoney/{amount}")]
+    [HttpPost("admin/addmoney/alluser/{amount}")]
     public ActionResult<int> UpdateAccountAmount(double amount){
 
         //check if amount input is valid
-        if(amount <= 0){
+        if(amount == 0){
             
-            UnprocessableEntity("Amount must be larget than 0");
+            UnprocessableEntity("Amount must be  0");
         }
         else{
 
@@ -37,16 +36,15 @@ public class MinionManagementController : ControllerBase
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
 
-                // create response
-                HttpContext.Current.Response.Header.Add("affect-row",1);
-                // correct status code 204
-
-                return NoContent();
+                //create reponse header
+                HttpContext.Response.Headers.Add("Role", "Admin");
+                // correct status code 201
+                return Created("","Action Successfully");
             }
             else{
 
-                // incorrect state code 404
-                return NotFound("Something wrong");
+                // incorrect state code 400
+                return BadRequest("Something wrong");
             }
         }
 

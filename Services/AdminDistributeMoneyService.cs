@@ -7,17 +7,17 @@ namespace Services;
 public class AdminDistributeMoneyService{
 
 
-    private AdminDistributeMoneyRepo _adminRepo;
+    private AdminAddMoneyRepo _adminRepo;
 
     public AdminDistributeMoneyService(){
         
-        _adminRepo = new AdminDistributeMoneyRepo();
+        _adminRepo = new AdminAddMoneyRepo();
     }
 
     public int DistributeMoneyToAllUsers(double amount){
 
         // call Distribute Money from Repo
-        return _adminRepo.DistributeMoney(amount);
+        return _adminRepo.AddMoney(amount);
     }
     
 
