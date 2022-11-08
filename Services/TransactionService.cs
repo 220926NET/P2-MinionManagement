@@ -3,12 +3,20 @@
 namespace Services;
 public class TransactionService
 {
-    private IDBRepo _repo;
+    private ITransactionRepo _repo;
     public TransactionService() {
-        _repo = new DBRepo();           // FOR dependency injection, COULD switch out with initialized factory??
+        _repo = new TransactionRepo();
     }
 
     public bool? TransferMoney(int sendingAccount, int receivingAccount, decimal amount) {
+        // Validating that accounts exist
+        if (!_repo.UpdateAccountAmount(sendingAccount, Decimal.Negate(amount))) 
+            return null;
+        if (!_repo.UpdateAccountAmount(receivingAccount, amount)) {
+            _repo.UpdateAccountAmount(sendingAccount, amount);
+            return false;
+        }
+
         return _repo.NewTransaction(sendingAccount, receivingAccount, amount);
     }
 }

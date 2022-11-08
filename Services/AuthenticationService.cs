@@ -6,12 +6,11 @@ using System.Web.Helpers;
 using DataAccess;
 
 namespace Services;
-
 public class AuthenticationService
 {
     private IAuthenticationRepo _repo;
     public AuthenticationService() {
-        _repo = new AuthenticationRepo();           // FOR dependency injection, COULD switch out with initialized factory??
+        _repo = new AuthenticationRepo();
     }
 
     public bool Register(string username, string password) {

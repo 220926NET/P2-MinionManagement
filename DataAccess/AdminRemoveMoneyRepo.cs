@@ -1,21 +1,17 @@
-using Models;
 using Microsoft.Data.SqlClient;
 
 namespace DataAccess;
 
-public class AdminRemoveMoneyRepo{
-
+public class AdminRemoveMoneyRepo
+{
     private readonly ConnectionFactory _factory;
-    
 
     public AdminRemoveMoneyRepo(){
-        
         _factory = new ConnectionFactory();
     }
 
     public int RemoveMoney(double amount){
-
-        SqlConnection connection = _factory.AddConnection();
+        SqlConnection connection = _factory.GetConnection();
         connection.Open();
 
         // remove money to Users checking account amount who are not admin

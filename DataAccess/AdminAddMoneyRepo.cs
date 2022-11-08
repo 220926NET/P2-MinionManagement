@@ -1,4 +1,3 @@
-using Models;
 using Microsoft.Data.SqlClient;
 
 namespace DataAccess;
@@ -8,14 +7,11 @@ public class AdminAddMoneyRepo
     private readonly ConnectionFactory _factory;
 
     public AdminAddMoneyRepo(){
-        
         _factory = new ConnectionFactory();
     }
 
-
     public int AddMoney(double amount){
-
-        SqlConnection connection = _factory.AddConnection();
+        SqlConnection connection = _factory.GetConnection();
         connection.Open();
 
         // add money to Users checking account amount who are not admin
