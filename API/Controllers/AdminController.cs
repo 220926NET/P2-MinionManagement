@@ -7,15 +7,15 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MinionManagementController : ControllerBase
+public class AdminController : ControllerBase
 {
 
     // Injection for Service layers
-    private readonly ILogger<MinionManagementController> _logger;
+    private readonly ILogger<AdminController> _logger;
     private readonly AdminAddMoneyService _adminAddService;
     private readonly AdminRemoveMoneyService _adminRemoveService;
 
-    public MinionManagementController(ILogger<MinionManagementController> logger)
+    public AdminController(ILogger<AdminController> logger)
     {
         _logger = logger;
         _adminAddService = new AdminAddMoneyService();
@@ -24,7 +24,7 @@ public class MinionManagementController : ControllerBase
         
     }
 
-    [HttpPost("admin/addmoney/allusers/{amount}")]
+    [HttpPost("addmoney/allusers/{amount}")]
     public ActionResult<int> AdminAddMoneyToAllUsers(double amount){
 
         //check if amount input is valid
@@ -55,7 +55,7 @@ public class MinionManagementController : ControllerBase
     }
 
 
-    [HttpPost("admin/removemoney/allusers/{amount}")]
+    [HttpPost("removemoney/allusers/{amount}")]
     public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble (double amount){
 
         //check if amount input is valid
