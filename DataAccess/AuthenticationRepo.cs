@@ -4,7 +4,7 @@ namespace DataAccess;
 
 public class AuthenticationRepo : IAuthenticationRepo
 {
-    private ConnectionFactory _factory;
+    private ConnectionFactory _factory; 
     public AuthenticationRepo() {
         _factory = new ConnectionFactory();
     }
@@ -59,12 +59,12 @@ public class AuthenticationRepo : IAuthenticationRepo
     }
     
     public void NewLogIn(string username, string password) {
-        SetData("INSERT INTO User_Login (UserName, PassWord) VALUES (@UName, @PWord);", new List<string> {"@UName", "@PWord"}, new List<string> {username, password});
+        SetData("INSERT INTO User_Login (UserName, PassWord) VALUES (@UName, @PWord)", new List<string> {"@UName", "@PWord"}, new List<string> {username, password});
         NewProfile(username);
         return;
     }
     public void NewProfile(string username) {
-        SetData("INSERT INTO User_Profiles (UserName, FirstName, LastName, TroopCount) VALUES (@UName, @FName, @LName, @TroopCount);", 
+        SetData("INSERT INTO User_Profiles (UserName, FirstName, LastName, TroopCount) VALUES (@UName, @FName, @LName, @TroopCount)", 
                 new List<string> {"@UName", "@FName", "@LName", "@TroopCount"}, new List<string> {username, "N/A", "N/A", "0"});
         return;
     }
