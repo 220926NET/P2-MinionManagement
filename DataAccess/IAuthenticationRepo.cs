@@ -8,6 +8,6 @@ public interface IAuthenticationRepo
 
     /* Read */
     bool UsernameExists(string username);
-    bool VerifyCredentials(string username, string password);
+    string? GetHash(string username);
     int UserId(string username);
 }

@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Web.Helpers;
 
 using DataAccess;
@@ -25,21 +26,27 @@ public class AuthenticationService
 
     public string? LogIn(string username, string password) {
         if (_repo.UsernameExists(username)) {
-            string hash = Crypto.HashPassword(password);
-            if (_repo.VerifyCredentials(username, hash)) {
-                // Can ALSO use: Crypto.VerifyHashedPassword(hash, password) TO COMPARE un-hashed password to hashed password
-                return GenerateWebToken();
-                //return _repo.UserId(username);    // Does the ID need to be passed in header to keep track of user??? (if so, make new model & return both JWT and ID) OR USE Jwt Claims
+            string hash = _repo.GetHash(username)!;
+            if (hash != null) {
+                if (Crypto.VerifyHashedPassword(hash, password)) {
+                    int userId = _repo.UserId(username);    // For the ID to be passed in token claim to keep track of user
+                    return GenerateWebToken(userId.ToString());
+                }
             }
         }
         return null;
     }
 
-    private string GenerateWebToken() {
-        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("SuperSecretKey"));    
-        SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);    
+    private string GenerateWebToken(string id) {
+        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("SuperSecretSecurityKey"));    
+        SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);  
+
+        List<Claim> tokenClaims = new List<Claim> {
+            new Claim(ClaimTypes.Sid, id)
+        };
     
-        JwtSecurityToken token = new JwtSecurityToken(//null,    
+        JwtSecurityToken token = new JwtSecurityToken(//null, 
+                    claims: tokenClaims,   
                     expires: DateTime.Now.AddMinutes(120),    
                     signingCredentials: credentials);    
 
