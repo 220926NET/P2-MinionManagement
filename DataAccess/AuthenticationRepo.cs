@@ -4,7 +4,7 @@ namespace DataAccess;
 
 public class AuthenticationRepo : IAuthenticationRepo
 {
-    private ConnectionFactory _factory;
+    private ConnectionFactory _factory; 
     public AuthenticationRepo() {
         _factory = new ConnectionFactory();
     }
@@ -33,6 +33,7 @@ public class AuthenticationRepo : IAuthenticationRepo
         catch (SqlException ex)
         {
             // SeriLog
+            Console.WriteLine(ex);
         }
         return value;
     }
@@ -54,17 +55,18 @@ public class AuthenticationRepo : IAuthenticationRepo
         catch (SqlException ex)
         {
             // SeriLog
+            Console.WriteLine(ex);
         }
         return;
     }
     
     public void NewLogIn(string username, string password) {
-        SetData("INSERT INTO User_Login (UserName, PassWord) VALUES (@UName, @PWord);", new List<string> {"@UName", "@PWord"}, new List<string> {username, password});
+        SetData("INSERT INTO User_Login (UserName, PassWord) VALUES (@UName, @PWord)", new List<string> {"@UName", "@PWord"}, new List<string> {username, password});
         NewProfile(username);
         return;
     }
     public void NewProfile(string username) {
-        SetData("INSERT INTO User_Profiles (UserName, FirstName, LastName, TroopCount) VALUES (@UName, @FName, @LName, @TroopCount);", 
+        SetData("INSERT INTO User_Profiles (UserName, FirstName, LastName, TroopCount) VALUES (@UName, @FName, @LName, @TroopCount)", 
                 new List<string> {"@UName", "@FName", "@LName", "@TroopCount"}, new List<string> {username, "N/A", "N/A", "0"});
         return;
     }
@@ -74,10 +76,10 @@ public class AuthenticationRepo : IAuthenticationRepo
         if (user == null)   return false;
         else    return true;
     }
-    public bool VerifyCredentials(string username, string password) {
+    public string? GetHash(string username) {
         string? pass = GetValue($"SELECT * FROM User_Login WHERE UserName = '{username}';", "Password");
-        if (pass == password)   return true;
-        else    return false;
+        if (pass == null)   return null;
+        else    return pass;
     }
     public int UserId(string username) {
         string? id = GetValue($"SELECT * FROM User_Profiles WHERE UserName = '{username}';", "ID");

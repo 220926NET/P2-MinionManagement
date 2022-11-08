@@ -25,18 +25,19 @@ public class AuthenticationService
 
     public string? LogIn(string username, string password) {
         if (_repo.UsernameExists(username)) {
-            string hash = Crypto.HashPassword(password);
-            if (_repo.VerifyCredentials(username, hash)) {
-                // Can ALSO use: Crypto.VerifyHashedPassword(hash, password) TO COMPARE un-hashed password to hashed password
-                return GenerateWebToken();
-                //return _repo.UserId(username);    // Does the ID need to be passed in header to keep track of user??? (if so, make new model & return both JWT and ID) OR USE Jwt Claims
+            string hash = _repo.GetHash(username)!;
+            if (hash != null) {
+                if (Crypto.VerifyHashedPassword(hash, password)) {
+                    return GenerateWebToken();
+                    //return _repo.UserId(username);    // Does the ID need to be passed in header to keep track of user??? (if so, make new model & return both JWT and ID) OR USE Jwt Claims
+                }
             }
         }
         return null;
     }
 
     private string GenerateWebToken() {
-        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("SuperSecretKey"));    
+        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("SuperSecretSecurityKey"));    
         SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);    
     
         JwtSecurityToken token = new JwtSecurityToken(//null,    
