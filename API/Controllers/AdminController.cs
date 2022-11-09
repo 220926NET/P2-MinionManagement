@@ -9,25 +9,23 @@ public class AdminController : ControllerBase
 {
     // Injection for Service layers
     private readonly ILogger<AdminController> _logger;
-    private readonly AdminAddMoneyService _adminAddService;
-    private readonly AdminRemoveMoneyService _adminRemoveService;
+    private readonly AdminService _adminService;
 
     public AdminController(ILogger<AdminController> logger)
     {
         _logger = logger;
-        _adminAddService = new AdminAddMoneyService();
-        _adminRemoveService = new AdminRemoveMoneyService(); 
+        _adminService = new AdminService(); 
     }
 
     [HttpPost("addmoney/allusers/{amount}")]
-    public ActionResult<int> AdminAddMoneyToAllUsers(double amount){
+    public ActionResult<int> AdminAddMoneyToAllUsers(decimal amount){
         //check if amount input is valid
         if(amount <= 0){
             UnprocessableEntity("Amount must be greate than 0");
         }
         else{
             //Model is valid, then call Distribute Money to all user function
-            int returnAffectedRows = _adminAddService.AddMoneyToAllUsers(amount);
+            int returnAffectedRows = _adminService.AddMoneyToAllUsers(amount);
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
                 //create reponse header
@@ -45,14 +43,14 @@ public class AdminController : ControllerBase
 
 
     [HttpPost("removemoney/allusers/{amount}")]
-    public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble (double amount){
+    public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble(decimal amount){
         //check if amount input is valid
         if(amount <= 0){
             UnprocessableEntity("Amount must be  0");
         }
         else{
             //Model is valid, then call Distribute Money to all user function
-            int returnAffectedRows = _adminRemoveService.RemoveMoneyFromAllUsers(amount);
+            int returnAffectedRows = _adminService.RemoveMoneyFromAllUsers(amount);
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
                 //create reponse header

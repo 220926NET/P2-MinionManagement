@@ -12,6 +12,10 @@ public class AuthenticationService
     public AuthenticationService() {
         _repo = new AuthenticationRepo();
     }
+    // Constructor used for mocking in unit testing
+    public AuthenticationService(IAuthenticationRepo repo) {
+        _repo = repo;
+    }
 
     public bool Register(string username, string password) {
         if (!_repo.UsernameExists(username)) {

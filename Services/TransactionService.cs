@@ -7,6 +7,10 @@ public class TransactionService
     public TransactionService() {
         _repo = new TransactionRepo();
     }
+    // Constructor used for mocking in unit testing
+    public TransactionService(ITransactionRepo repo) {
+        _repo = repo;
+    }
 
     public bool? TransferMoney(int sendingAccount, int receivingAccount, decimal amount) {
         // Validating that accounts exist
