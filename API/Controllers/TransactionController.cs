@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-
 using System.Text.Json;
 
 using Services;
@@ -13,10 +12,10 @@ public class TransactionController : ControllerBase
     private readonly ILogger<TransactionController> _logger;
     private TransactionService _service; 
 
-    public TransactionController(ILogger<TransactionController> logger)
+    public TransactionController(ILogger<TransactionController> logger, TransactionService service)
     {
         _logger = logger;
-        _service = new TransactionService();
+        _service = service;
     }
 
     [HttpPost("transaction")]
@@ -28,8 +27,8 @@ public class TransactionController : ControllerBase
         if (fromAccount != null && toAccount != null && amount != null) {
             bool? successful = _service.TransferMoney((int) fromAccount, (int) toAccount, (decimal) amount);
 
-            if (successful == null) return BadRequest("Unrecognized Account");
-            else if (successful == false)   return BadRequest("ERROR!!!");
+            if (successful == null) return BadRequest("Unrecognized Sending Account");
+            else if (successful == false)   return BadRequest("Unrecognized Receiving Account");
             else    return Created("", "Transaction recorded");
         }
         else    return BadRequest("Invalid Input");

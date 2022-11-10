@@ -12,10 +12,10 @@ public class AuthenticationController : ControllerBase
     private readonly ILogger<AuthenticationController> _logger;
     private AuthenticationService _service; 
 
-    public AuthenticationController(ILogger<AuthenticationController> logger)
+    public AuthenticationController(ILogger<AuthenticationController> logger, AuthenticationService service)
     {
         _logger = logger;
-        _service = new AuthenticationService();
+        _service = service;
     }
 
     [HttpPost("Register")]
