@@ -4,11 +4,8 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 
-# Project-specific files
-DataAccess/SecetString.cs
 # Project-specific files (Sergio's)
 Private.cs
-#
 appsettings.Development.json
 
 # User-specific files
