@@ -11,7 +11,7 @@ export class InternalAPIService {
   // dependency injection
   constructor(private http:HttpClient) { }
 
-  //API deployment string
+  //Need to change to API deployment string
   private apiURL : string = 'https://localhost:7202/Authentication/Login';
   // Using localhost for testing purpose
   Login(data: any) : Observable<any> {

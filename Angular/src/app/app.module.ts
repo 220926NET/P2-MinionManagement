@@ -18,6 +18,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 // Angualr material Card
 import {MatCardModule} from '@angular/material/card';
+// Angualr material Toolbar
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import {MatCardModule} from '@angular/material/card';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
