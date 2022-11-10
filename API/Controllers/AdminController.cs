@@ -11,10 +11,10 @@ public class AdminController : ControllerBase
     private readonly ILogger<AdminController> _logger;
     private readonly AdminService _adminService;
 
-    public AdminController(ILogger<AdminController> logger)
+    public AdminController(ILogger<AdminController> logger, AdminService service)
     {
         _logger = logger;
-        _adminService = new AdminService(); 
+        _adminService = service; 
     }
 
     [HttpPost("addmoney/allusers/{amount}")]
