@@ -23,9 +23,12 @@ export class LoginComponent implements OnInit {
     password : '000'
   }
 
-  token : string = '';
-  LoginFunction() : Observable<any> {
+  token : any = '';
+  
+  LoginFunction() : void{
     console.log('LoginFunction invoked');
-    return this.api.Login(this.loginUser)
+    this.api.Login(this.loginUser).subscribe(
+      (data) => console.log(data)
+    )
   }
 }
