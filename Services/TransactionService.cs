@@ -4,10 +4,6 @@ namespace Services;
 public class TransactionService
 {
     private ITransactionRepo _repo;
-    public TransactionService() {
-        _repo = new TransactionRepo();
-    }
-    // Constructor used for mocking in unit testing
     public TransactionService(ITransactionRepo repo) {
         _repo = repo;
     }

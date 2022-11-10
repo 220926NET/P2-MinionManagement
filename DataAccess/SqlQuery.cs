@@ -2,11 +2,14 @@ using Microsoft.Data.SqlClient;
 
 namespace DataAccess;
 
-internal static class SqlQuery
+internal class SqlQuery
 {
-    private static ConnectionFactory _factory = new ConnectionFactory();
+    private ConnectionFactory _factory;
+    public SqlQuery(ConnectionFactory factory) {
+        _factory = factory;
+    }
 
-    internal static string? GetValue(string query, string column) {
+    internal string? GetValue(string query, string column) {
         string? value = null;
         try
         {
@@ -35,7 +38,7 @@ internal static class SqlQuery
         return value;
     }
 
-    internal static List<string>? GetData(string query, List<string> columns) {
+    internal List<string>? GetData(string query, List<string> columns) {
         try
         {
             using SqlConnection connection = _factory.GetConnection();
@@ -74,7 +77,7 @@ internal static class SqlQuery
         return null;
     }
     
-    internal static void SetData(string command, List<string> parameters, List<string> values) {
+    internal void SetData(string command, List<string> parameters, List<string> values) {
         try
         {
             using SqlConnection connection = _factory.GetConnection();

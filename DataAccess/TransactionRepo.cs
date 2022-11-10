@@ -2,16 +2,21 @@
 
 public class TransactionRepo : ITransactionRepo
 {
-    public TransactionRepo() {}
+    private readonly ConnectionFactory _factory;
+    private readonly SqlQuery _query;
+    public TransactionRepo(ConnectionFactory factory) {
+        _factory = factory;
+        _query = new SqlQuery(factory);
+    }
 
     public bool NewTransaction(int sender, int receiver, decimal amount) {
-        SqlQuery.SetData("INSERT INTO System_Transactions (SenderNumber, ReceiverNumber, Amount) VALUES (@Sender, @Receiver, @Amount);", 
+        _query.SetData("INSERT INTO System_Transactions (SenderNumber, ReceiverNumber, Amount) VALUES (@Sender, @Receiver, @Amount);", 
                 new List<string> { "@Sender", "@Receiver", "@Amount" }, new List<string> { sender.ToString(), receiver.ToString(), amount.ToString() });
         return true;
     }
 
     public decimal? GetAmount(int account) {
-        string? currentAmount = SqlQuery.GetValue($"SELECT Amount FROM System_Accouts WHERE Number = {account};", "Amount");
+        string? currentAmount = _query.GetValue($"SELECT Amount FROM System_Accouts WHERE Number = {account};", "Amount");
         if (currentAmount == null)  return null;
         else    return decimal.Parse(currentAmount);
     }
@@ -21,7 +26,7 @@ public class TransactionRepo : ITransactionRepo
         if (currentAmount == null)  return false;
 
         decimal? newAmount = currentAmount + amountDiff;
-        SqlQuery.SetData($"UPDATE System_Accounts SET Amount = @UpdatedAmount WHERE Number = {account};", 
+        _query.SetData($"UPDATE System_Accounts SET Amount = @UpdatedAmount WHERE Number = {account};", 
                 new List<string> { "@UpdatedAmount" }, new List<string> { newAmount.ToString()! });
         return true;
     }

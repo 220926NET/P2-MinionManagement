@@ -6,8 +6,8 @@ public class AdminRepo : IAdminRepo
 {
     private readonly ConnectionFactory _factory;
 
-    public AdminRepo(){
-        _factory = new ConnectionFactory();
+    public AdminRepo(ConnectionFactory factory){
+        _factory = factory;
     }
 
     public int AddMoney(decimal amount){

@@ -4,10 +4,6 @@ namespace Services;
 public class AdminService
 {
     private readonly IAdminRepo _adminRepo;
-    public AdminService(){
-        _adminRepo = new AdminRepo();
-    }
-    // Constructor used for mocking in unit testing
     public AdminService(IAdminRepo repo) {
         _adminRepo = repo;
     }

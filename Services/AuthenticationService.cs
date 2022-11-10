@@ -9,10 +9,6 @@ namespace Services;
 public class AuthenticationService
 {
     private IAuthenticationRepo _repo;
-    public AuthenticationService() {
-        _repo = new AuthenticationRepo();
-    }
-    // Constructor used for mocking in unit testing
     public AuthenticationService(IAuthenticationRepo repo) {
         _repo = repo;
     }
