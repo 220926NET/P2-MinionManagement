@@ -1,3 +1,13 @@
-<p>login works!</p>
-<button (click)="LoginFunction()"> Login </button>
-<p>{{token}}</p>
+<div class="container">
+    <form [formGroup]="loginFrom">
+        <div class="form-group">
+            <input placeholder="username" formControlName="username">
+            <div >
+            </div>
+        </div>
+        <div class="form-group">
+            <input placeholder="password" formControlName="password">
+        </div>
+        <button (click)="loginProcess()">LOGIN</button>
+    </form>
+</div>

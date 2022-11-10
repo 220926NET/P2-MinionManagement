@@ -12,9 +12,9 @@ export class InternalAPIService {
   constructor(private http:HttpClient) { }
 
   //API deployment string
-  private apiURL : string = 'https://minionmgmt.azurewebsites.net/Authentication/Login';
+  private apiURL : string = 'https://localhost:7202/Authentication/Login';
   // Using localhost for testing purpose
-  Login(loginUser : LoginUser) : Observable<any> {
-    return this.http.post(this.apiURL, loginUser);
+  Login(data: any) : Observable<any> {
+    return this.http.post(this.apiURL, data);
   }
 }
