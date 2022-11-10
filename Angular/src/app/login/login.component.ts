@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InternalAPIService } from '../API-Service/internal-api.service';
 import { LoginUser } from 'src/Model/LoginUser';
-import { Observable } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,21 +11,27 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
+  
+
   // dependency injection
   constructor(private api : InternalAPIService ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  // Create a user object for testing
-  loginUser : LoginUser = {
-    username : 'testforReg',
-    password : '000'
-  }
+  loginFrom: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  });
 
-  token : string = '';
-  LoginFunction() : Observable<any> {
-    console.log('LoginFunction invoked');
-    return this.api.Login(this.loginUser)
+  loginProcess(){
+    if(this.loginFrom.valid){
+        console.log(this.loginFrom.controls['username'].value);
+        console.log(this.loginFrom.controls['password'].value);
+        this.api.Login({
+          username : this.loginFrom.controls['username'].value,
+          password : this.loginFrom.controls['password'].value
+        }).subscribe((res) => {console.log(res)})
+    }
   }
+ 
 }
