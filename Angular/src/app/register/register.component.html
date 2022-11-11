@@ -1,21 +1,20 @@
 <mat-toolbar>Minion Management System</mat-toolbar>
 <div fxLayoutAlign="center center" fxFlexFill> <!--Align to center-->
     <mat-card fxFlex="25"> <!--Nested element together-->
-    <h1>Welcome</h1>
-    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="loginFrom">
+    <h1>New User Registration</h1>
+    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="registerFrom">
         <mat-form-field appearance="fill">
-          <mat-label>UserName</mat-label>
+          <mat-label>New UserName</mat-label>
           <input matInput formControlName="username">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
+            <mat-label>New Password</mat-label>
             <input matInput type="password" formControlName="password">
           </mat-form-field>
 
-        <button mat-raised-button="submit" color="primary" (click)="loginProcess()">LOGIN</button>
+        <button mat-raised-button="submit" color="primary" (click)="registerProcess()">COMFIRM</button>
         <br>
-        <button mat-raised-button="submit" color="primary" routerLink="register">REGISTER</button>
     </form>
   </mat-card>
 </div>
