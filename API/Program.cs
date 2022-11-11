@@ -1,11 +1,20 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using System.IdentityModel.Tokens;
+using DataAccess;
+using Services;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<ConnectionFactory>(ctx => new ConnectionFactory(builder.Configuration.GetConnectionString("dbConnection")));
+builder.Services.AddScoped<IAdminRepo, AdminRepo>();
+builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<IAuthenticationRepo, AuthenticationRepo>();
+builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
+builder.Services.AddScoped<TransactionService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
