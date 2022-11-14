@@ -20,14 +20,20 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 // Angualr material Toolbar
 import {MatToolbarModule} from '@angular/material/toolbar';
+// Angular material icon
+import {MatIcon, MatIconModule} from '@angular/material/icon'
+
 import { RegisterComponent } from './register/register.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TransactionComponent
+
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,8 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

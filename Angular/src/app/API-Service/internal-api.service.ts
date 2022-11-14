@@ -26,4 +26,8 @@ export class InternalAPIService {
   }
 
 
+  private apiTransactionURL : string = "https://localhost:7202/Transaction/transaction";
+  Transaction(data : any) : Observable<any> {
+    return this.http.post(this.apiTransactionURL, data)
+  }
 }
