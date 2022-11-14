@@ -27,8 +27,7 @@ export class RegisterComponent implements OnInit {
       this.api.Register({
         username: this.registerFrom.controls['username'].value,
         password: this.registerFrom.controls['password'].value
-      }).subscribe( //(res) => console.log(res) always return http error message
-        {error(err){if(err.status == 201){alert("new user created ssuccessfully")}}}
+      }).subscribe( (res) => alert(res)
       )
     }
   }

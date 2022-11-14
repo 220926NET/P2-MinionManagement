@@ -25,6 +25,7 @@ import {MatIcon, MatIconModule} from '@angular/material/icon'
 
 import { RegisterComponent } from './register/register.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    TransactionComponent
+    TransactionComponent,
+    AdminComponent
 
   ],
   imports: [

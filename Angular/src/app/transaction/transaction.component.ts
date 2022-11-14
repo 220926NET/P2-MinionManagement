@@ -8,7 +8,7 @@ import { InternalAPIService } from '../API-Service/internal-api.service';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit {
-  fromAccount : number = 1;
+  
   constructor(private api : InternalAPIService ) { }
 
   ngOnInit(): void {
@@ -23,12 +23,12 @@ export class TransactionComponent implements OnInit {
     if(this.transactionForm.valid){
       console.log(this.transactionForm.controls['to'].value);
       console.log(this.transactionForm.controls['amount'].value);
+      
       this.api.Transaction({
         from : 1,  //need to replace with current user
         to : this.transactionForm.controls['to'].value,
         amount : this.transactionForm.controls['amount'].value
-      }).subscribe( //(res) => console.log(res) always return http error message
-        {error(err){if(err.status == 201){alert("transaction successfully")}}}
+      }).subscribe( (res) => alert(res)
       )
     }
   }

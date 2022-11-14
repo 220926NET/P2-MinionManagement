@@ -27,10 +27,10 @@ public class TransactionController : ControllerBase
         if (fromAccount != null && toAccount != null && amount != null) {
             bool? successful = _service.TransferMoney((int) fromAccount, (int) toAccount, (decimal) amount);
 
-            if (successful == null) return BadRequest("Unrecognized Sending Account");
-            else if (successful == false)   return BadRequest("Unrecognized Receiving Account");
-            else    return Created("", "Transaction recorded");
+            if (successful == null) return BadRequest(400);
+            else if (successful == false)   return BadRequest(400);
+            else    return Created("", 201);
         }
-        else    return BadRequest("Invalid Input");
+        else    return BadRequest(400);
     }
 }

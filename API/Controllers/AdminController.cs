@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using Services;
+using System.Text.Json.Nodes;
 
 namespace API.Controllers;
 
@@ -18,9 +20,10 @@ public class AdminController : ControllerBase
     }
 
     [HttpPost("addmoney")]
-    public ActionResult<int> AdminAddMoneyToAllUsers(decimal amount){
+    public ActionResult<int> AdminAddMoneyToAllUsers([FromBody] JsonElement json){
+        decimal amount = JsonSerializer.Deserialize<decimal>(json.GetProperty("amount"));
         //check if amount input is valid
-        if(amount <= 0){
+        if(amount <= 0 ){
             UnprocessableEntity("Amount must be greate than 0");
         }
         else{
@@ -29,11 +32,11 @@ public class AdminController : ControllerBase
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
                 //create reponse header
-                HttpContext.Response.Headers.Add("Role", "Admin");
+                HttpContext.Response.Headers.Add("result", "successfully");
                 // correct status code 201
-                return Created("","Action Successfully");
+                return Created("",201);
             }
-            else{
+            else{ 
                 // incorrect state code 400
                 return BadRequest("Something wrong");
             }
@@ -43,7 +46,9 @@ public class AdminController : ControllerBase
 
 
     [HttpPost("removemoney")]
-    public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble(decimal amount){
+    public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble([FromBody] JsonElement json){
+
+        decimal amount = JsonSerializer.Deserialize<decimal>(json.GetProperty("amount"));
         //check if amount input is valid
         if(amount <= 0){
             UnprocessableEntity("Amount must be  0");
@@ -54,9 +59,9 @@ public class AdminController : ControllerBase
             // correct respond will be  at least one affected row (update successfully)
             if(returnAffectedRows > 0){
                 //create reponse header
-                HttpContext.Response.Headers.Add("Role", "Admin");
+                HttpContext.Response.Headers.Add("result", "successfully");
                 // correct status code 201
-                return Created("","Action Successfully");
+                return Created("",201);
             }
             else{
                 // incorrect state code 400
