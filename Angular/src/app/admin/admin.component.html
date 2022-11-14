@@ -1,0 +1,19 @@
+<form [formGroup]="adminAddMoneyForm">
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" class="example-right-align" placeholder="0" formControlName="amount">
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+  
+    <button mat-stroked-button (click)="adminAddMoneyProcess()">Send To All Users</button>
+</form>
+
+<form [formGroup]="adminRemoveMoneyForm">
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" formControlName="amount">
+    <span matPrefix>$&nbsp;</span>
+  </mat-form-field>
+
+  <button mat-stroked-button (click)="adminRemoveMoneyProcess()">Remove From All Users</button>
+</form>

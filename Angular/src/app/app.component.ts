@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InternalAPIService } from './API-Service/internal-api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular';
+
 }
