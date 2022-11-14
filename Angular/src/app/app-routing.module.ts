@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  //set route to login component for <route-outlet>
+  {path:'', component:LoginComponent},
+  {path: 'register', component:RegisterComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -5,6 +5,10 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.6" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
