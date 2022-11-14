@@ -21,12 +21,7 @@ internal class SqlQuery
 
             if (reader.HasRows) {
                 if (reader.Read()) {
-                    if (reader[column].GetType() == typeof(Int32))
-                        value = reader[column].ToString();
-                    else if (reader[column].GetType() == typeof(Decimal))
-                        value = (reader[column].ToString()!);
-                    else    
-                        value = (string) reader[column];
+                    value = reader[column].ToString()!;
                 }
             }
 
@@ -56,12 +51,8 @@ internal class SqlQuery
                     foreach (string column in columns) {
                         if (reader[column].GetType() == typeof(DBNull)) 
                             continue;
-                        else if (reader[column].GetType() == typeof(Int32))
-                            values.Add(reader[column].ToString()!);
-                        else if (reader[column].GetType() == typeof(Decimal))
-                            values.Add(reader[column].ToString()!);
                         else {
-                            values.Add((string) reader[column]);
+                            values.Add(reader[column].ToString()!);
                         }
                     }
                 }

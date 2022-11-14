@@ -13,6 +13,8 @@ builder.Services.AddScoped<IAuthenticationRepo, AuthenticationRepo>();
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
 builder.Services.AddScoped<TransactionService>();
+builder.Services.AddScoped<IProfileRepo, ProfileRepo>();
+builder.Services.AddScoped<ProfileService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -41,6 +43,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Applies JWT Authentication Middleware
+app.UseAuthentication();
 
 app.UseAuthorization();
 

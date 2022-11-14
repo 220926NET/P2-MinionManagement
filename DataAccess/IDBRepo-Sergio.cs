@@ -1,3 +1,5 @@
+using Models;
+
 namespace DataAccess;
 
 public interface ITransactionRepo
@@ -22,4 +24,11 @@ public interface IAuthenticationRepo
     bool UsernameExists(string username);
     string? GetHash(string username);
     int UserId(string username);
+}
+
+public interface IProfileRepo
+{
+    /* Read */
+    User? GetProfile(int id);
+    Dictionary<int, decimal> GetAccounts(int id, string type);
 }
