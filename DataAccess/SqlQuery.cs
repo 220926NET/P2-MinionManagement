@@ -23,6 +23,8 @@ internal class SqlQuery
                 if (reader.Read()) {
                     if (reader[column].GetType() == typeof(Int32))
                         value = reader[column].ToString();
+                    else if (reader[column].GetType() == typeof(Decimal))
+                        value = (reader[column].ToString()!);
                     else    
                         value = (string) reader[column];
                 }
