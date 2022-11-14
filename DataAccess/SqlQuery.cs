@@ -24,7 +24,7 @@ internal class SqlQuery
                     if (reader[column].GetType() == typeof(Int32))
                         value = reader[column].ToString();
                     else    
-                        value = (string) reader[column];
+                        value = reader[column].ToString();
                 }
             }
 

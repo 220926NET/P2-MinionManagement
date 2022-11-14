@@ -1,0 +1,16 @@
+<form [formGroup]="transactionForm">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Receiver ID</mat-label>
+    <input matInput  type="number" formControlName="to">
+    
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" formControlName="amount">
+    <span matPrefix>$&nbsp;</span>
+  </mat-form-field>
+
+  <button mat-stroked-button (click)="transacationProcess()">Send</button>
+</form>
