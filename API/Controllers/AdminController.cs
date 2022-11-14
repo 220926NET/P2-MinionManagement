@@ -38,7 +38,7 @@ public class AdminController : ControllerBase
             }
             else{ 
                 // incorrect state code 400
-                return BadRequest("Something wrong");
+                return BadRequest("400");
             }
         }
         return BadRequest();
@@ -65,7 +65,7 @@ public class AdminController : ControllerBase
             }
             else{
                 // incorrect state code 400
-                return BadRequest("Something wrong");
+                return BadRequest("400");
             }
         }
         return BadRequest();
