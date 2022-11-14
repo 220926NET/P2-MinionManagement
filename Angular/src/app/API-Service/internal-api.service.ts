@@ -13,29 +13,29 @@ export class InternalAPIService {
   constructor(private http:HttpClient) { }
 
   //Need to change to API deployment string
-  private apiLoginURL : string = 'https://localhost:7202/Authentication/Login';
+  private apiLoginURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Login';
   // Using localhost for testing purpose
   Login(data: any) : Observable<any> {
     return this.http.post(this.apiLoginURL, data);
   }
 
-  private apiRegisterURL : string = 'https://localhost:7202/Authentication/Register';
+  private apiRegisterURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Register';
   Register(data: any): Observable<any> {
     return this.http.post(this.apiRegisterURL,data)
   }
 
 
-  private apiTransactionURL : string = "https://localhost:7202/Transaction/transaction";
+  private apiTransactionURL : string = "https://minionmanagement.azurewebsites.net/Transaction/transaction";
   Transaction(data : any) : Observable<any> {
     return this.http.post(this.apiTransactionURL, data)
   }
 
-  private apiAdminAddMoney : string = "https://localhost:7202/Admin/addmoney";
+  private apiAdminAddMoney : string = "https://minionmanagement.azurewebsites.net/Admin/addmoney";
   AdminAddMoney(data : any) : Observable<any> {
     return this.http.post(this.apiAdminAddMoney, data);
   }
 
-  private apiAdminRemoveMoney : string = "https://localhost:7202/Admin/removemoney";
+  private apiAdminRemoveMoney : string = "https://minionmanagement.azurewebsites.net/Admin/removemoney";
   AdminRemoveMoney(data : any) : Observable<any> {
     return this.http.post(this.apiAdminRemoveMoney, data);
   }
