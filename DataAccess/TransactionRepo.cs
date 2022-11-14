@@ -16,7 +16,7 @@ public class TransactionRepo : ITransactionRepo
     }
 
     public decimal? GetAmount(int account) {
-        string? currentAmount = _query.GetValue($"SELECT Amount FROM System_Accouts WHERE Number = {account};", "Amount");
+        string? currentAmount = _query.GetValue($"SELECT Amount FROM System_Accounts WHERE Number = {account};", "Amount");
         if (currentAmount == null)  return null;
         else    return decimal.Parse(currentAmount);
     }
