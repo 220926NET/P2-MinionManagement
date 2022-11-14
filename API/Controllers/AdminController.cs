@@ -17,7 +17,7 @@ public class AdminController : ControllerBase
         _adminService = service; 
     }
 
-    [HttpPost("addmoney/allusers/{amount}")]
+    [HttpPost("addmoney")]
     public ActionResult<int> AdminAddMoneyToAllUsers(decimal amount){
         //check if amount input is valid
         if(amount <= 0){
@@ -42,7 +42,7 @@ public class AdminController : ControllerBase
     }
 
 
-    [HttpPost("removemoney/allusers/{amount}")]
+    [HttpPost("removemoney")]
     public ActionResult<int> AdminRemoveMoneyFromAllUsersdouble(decimal amount){
         //check if amount input is valid
         if(amount <= 0){
