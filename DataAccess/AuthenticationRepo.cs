@@ -36,4 +36,21 @@ public class AuthenticationRepo : IAuthenticationRepo
         if (id == null) return 0;
         else    return int.Parse(id);
     }
+
+    public void UpdateUsername(string oldUsername, string newUsername) {
+        _query.SetData("UPDATE User_Login SET UserName = @NewUname WHERE UserName = @OldUname;",
+                        new List<string> {"@OldUname", "@NewUname"}, new List<string> {oldUsername, newUsername});
+        _query.SetData("UPDATE User_Profiles SET UserName = @NewUname WHERE UserName = @OldUname;",
+                        new List<string> {"@OldUname", "@NewUname"}, new List<string> {oldUsername, newUsername});
+        // This function only works when the foreign key constraint is not enforced between Login & Profiles table!!
+        // NEED TO: Ignore Foreign Key constraint between User_Login & User_Profiles tables,
+                    //then make update to username in BOTH tables,
+                    //then re-establish the key constraint
+        return;
+    }
+    public void UpdatePassword(string username, string newPassword) {
+        _query.SetData("UPDATE User_Login SET PassWord = @NewPass WHERE UserName = @UName",
+                        new List<string> {"@NewPass", "@UName"}, new List<string> {newPassword, username});
+        return;
+    }
 }

@@ -12,6 +12,10 @@ public interface IAuthenticationRepo
     bool UsernameExists(string username);
     string? GetHash(string username);
     int UserId(string username);
+
+    /* Update */
+    void UpdateUsername(string oldUsername, string newUsername);
+    void UpdatePassword(string username, string newPassword);
 }
 
 public interface IProfileRepo

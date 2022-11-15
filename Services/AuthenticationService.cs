@@ -36,6 +36,20 @@ public class AuthenticationService
         return null;
     }
 
+    public bool ChangeLogin(string currentUsername, string change, int userId, bool passwordChange) {
+        if (_repo.UserId(currentUsername) == userId) {
+            if (!passwordChange) {
+                _repo.UpdateUsername(currentUsername, change);
+            }
+            else {
+                string hash = Crypto.HashPassword(change);
+                _repo.UpdatePassword(currentUsername, hash);
+            }
+            return true;
+        }
+        else    return false;
+    }
+
     private string GenerateWebToken(string id) {
         SymmetricSecurityKey securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("SuperSecretSecurityKey"));    
         SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);  
