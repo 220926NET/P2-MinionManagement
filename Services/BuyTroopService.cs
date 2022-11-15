@@ -9,7 +9,7 @@ public class BuyTroopService
         _buyTroopRepo = buyTroopRepo;
     }
 
-    public int BuyTroopFunc(int userID, int amount){
-        return _buyTroopRepo.BuyTroop(userID, amount);
+    public int BuyTroopFunc(int userID, int numOfTroop){
+        return _buyTroopRepo.BuyTroop(userID, numOfTroop);
     }
 }

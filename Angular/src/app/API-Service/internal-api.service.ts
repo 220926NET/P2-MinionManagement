@@ -39,4 +39,9 @@ export class InternalAPIService {
   AdminRemoveMoney(data : any) : Observable<any> {
     return this.http.post(this.apiAdminRemoveMoney, data);
   }
+
+  private apiBuyTroop :  string = "hhttps://minionmanagement.azurewebsites.net/Transaction/buytroop";
+  BuyTroop(data : any) : Observable<any> {
+    return this.http.post(this.apiBuyTroop, data);
+  }
 }

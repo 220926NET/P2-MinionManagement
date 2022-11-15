@@ -40,10 +40,10 @@ public class TransactionController : ControllerBase
     [HttpPost("buytroop")]
     public ActionResult<int> buytroop([FromBody] JsonElement json){
         int? userID = JsonSerializer.Deserialize<int>(json.GetProperty("userID"));
-        int? amount = JsonSerializer.Deserialize<int>(json.GetProperty("amount"));
+        int? numOfTroop = JsonSerializer.Deserialize<int>(json.GetProperty("numOfTroop"));
 
-        if(userID != null && amount != null){
-            int affectedRow = _troopService.BuyTroopFunc((int)userID, (int)amount);
+        if(userID != null && numOfTroop != null){
+            int affectedRow = _troopService.BuyTroopFunc((int)userID, (int)numOfTroop);
 
             if(affectedRow == 1) return Created("",201);
             else return BadRequest(400);

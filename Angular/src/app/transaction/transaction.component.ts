@@ -32,4 +32,22 @@ export class TransactionComponent implements OnInit {
       )
     }
   }
+
+
+  buyTroopForm : FormGroup = new FormGroup({
+    userID : new FormControl('', [Validators.required]),
+    numOfTroop : new FormControl('', [Validators.required])
+  })
+
+  buyTroopProcess(){
+    if(this.buyTroopForm.valid){
+      console.log(this.buyTroopForm.controls['userID'].value);
+      console.log(this.buyTroopForm.controls['numOfTroop'].value);
+    }
+
+    this.api.BuyTroop({
+      userID : this.buyTroopForm.controls['userID'].value, // need to replace with current user ID
+      numOfTroop : this.buyTroopForm.controls['numOfTroop'].value
+    }).subscribe((res) => alert(res))
+  }
 }

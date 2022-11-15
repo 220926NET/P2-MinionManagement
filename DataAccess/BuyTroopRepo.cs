@@ -10,31 +10,30 @@ public class BuyTroopRepo
         _factory = factory;
     }
 
-    public int BuyTroop(int userID, int amount){
+    public int BuyTroop(int userID, int numOfTroop){
 
         SqlConnection connection = _factory.GetConnection();
         connection.Open();
 
         // Deduct money from checking account
-        SqlCommand command = new SqlCommand($"UPDATE System_Accounts SET Amount = Amount - @amount WHERE UserID = @userID AND AccountType= 'checking' AND Amount >= @amount", connection);
-        command.Parameters.AddWithValue("@amount", amount);
+        // setting each troop cost $10
+        SqlCommand command = new SqlCommand($"UPDATE System_Accounts SET Amount = Amount - 10*@numOfTroop WHERE UserID = @userID AND AccountType= 'checking' AND Amount >= 10*@numOfTroop", connection);
+        command.Parameters.AddWithValue("@numOfTroop", numOfTroop);
         command.Parameters.AddWithValue("@userID", userID);
 
         int affectRow = command.ExecuteNonQuery();
         if(affectRow == 1){
             // Add troops
-            command.CommandText = $"UPDATE User_Profiles SET TroopCount = TroopCount + @amount WHERE id = @userID";
-            //command.Parameters.AddWithValue("@amount", amount);
-            //command.Parameters.AddWithValue("@userID", userID);
+            command.CommandText = $"UPDATE User_Profiles SET TroopCount = TroopCount + @numOfTroop WHERE id = @userID";
+            
 
             affectRow = command.ExecuteNonQuery();
 
             if(affectRow == 1){
 
                 //Update transaction record
-                command.CommandText = $"INSERT INTO System_Transactions VALUES((SELECT Number FROM System_Accounts WHERE UserID = @userID AND AccountType = 'checking'), 1, @amount)";
-                //command.Parameters.AddWithValue("@amount", amount);
-                //command.Parameters.AddWithValue("@userID", userID);
+                command.CommandText = $"INSERT INTO System_Transactions VALUES((SELECT Number FROM System_Accounts WHERE UserID = @userID AND AccountType = 'checking'), 1, 10*@numOfTroop)";
+                
 
                 affectRow = command.ExecuteNonQuery();
                 if(affectRow == 1){
