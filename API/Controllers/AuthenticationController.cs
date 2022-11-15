@@ -43,6 +43,7 @@ public class AuthenticationController : ControllerBase
             string? tokenString = _service.LogIn(username, password);
 
             if (tokenString != null) {
+                //_logger.LogInformation("Someone logged in!");     // Example of how to log something
                 return Ok(new { token = tokenString });
             }
             else    return BadRequest("Unrecognized Credentials");
