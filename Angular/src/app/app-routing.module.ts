@@ -10,6 +10,7 @@ import { AccountOverviewComponent } from './account-page/account-overview/accoun
 import { RequestFundsComponent } from './account-page/request-funds/request-funds.component';
 import { TransferFundsFormComponent } from './account-page/transfer-funds-form/transfer-funds-form.component';
 import { PurchaseTroopsComponent } from './raid-page/purchase-troops/purchase-troops.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   //set route to login component for <route-outlet>
@@ -23,8 +24,8 @@ const routes: Routes = [
   {path: 'account/overview/', component: AccountOverviewComponent},
   {path: 'account/requestfunds/', component: RequestFundsComponent},
   {path: 'account/transferfunds/', component: TransferFundsFormComponent},
-  {path: 'raid/purchasetroops/', component: PurchaseTroopsComponent}
-  
+  {path: 'raid/purchasetroops/', component: PurchaseTroopsComponent},
+  {path: 'userprofile', component: UserProfileComponent}
 ];
 
 @NgModule({
