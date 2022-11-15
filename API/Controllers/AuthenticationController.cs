@@ -25,11 +25,11 @@ public class AuthenticationController : ControllerBase
 
         if (username != null && password != null) {
             if (_service.Register(username, password)) {
-                return Created("", "Profile Created Successfully!");
+                return Created("", 201);
             }
-            else    return BadRequest("Username already exists!");
+            else    return BadRequest(400);
         }
-        else    return BadRequest("Invalid Credentials");
+        else    return BadRequest(400);
     }
 
     [HttpPost("Login")]
@@ -43,8 +43,8 @@ public class AuthenticationController : ControllerBase
             if (tokenString != null) {
                 return Ok(new { token = tokenString });
             }
-            else    return BadRequest("Unrecognized Credentials");
+            else    return BadRequest(400);
         }
-        else    return BadRequest("Invalid Credentials");
+        else    return BadRequest(400);
     }
 }

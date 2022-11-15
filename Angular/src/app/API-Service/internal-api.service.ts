@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { catchError, Observable, throwError } from 'rxjs';
-import { LoginUser } from 'src/Model/LoginUser';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +25,23 @@ export class InternalAPIService {
   }
 
 
-  private apiTransactionURL : string = "https://localhost:7202/Transaction/transaction";
+  private apiTransactionURL : string = "https://minionmanagement.azurewebsites.net/Transaction/transaction";
   Transaction(data : any) : Observable<any> {
     return this.http.post(this.apiTransactionURL, data)
+  }
+
+  private apiAdminAddMoney : string = "https://minionmanagement.azurewebsites.net/Admin/addmoney";
+  AdminAddMoney(data : any) : Observable<any> {
+    return this.http.post(this.apiAdminAddMoney, data);
+  }
+
+  private apiAdminRemoveMoney : string = "https://minionmanagement.azurewebsites.net/Admin/removemoney";
+  AdminRemoveMoney(data : any) : Observable<any> {
+    return this.http.post(this.apiAdminRemoveMoney, data);
+  }
+
+  private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Transaction/buytroop";
+  BuyTroop(data : any) : Observable<any> {
+    return this.http.post(this.apiBuyTroop, data);
   }
 }

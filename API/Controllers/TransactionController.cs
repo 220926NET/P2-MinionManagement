@@ -10,12 +10,15 @@ namespace API.Controllers;
 public class TransactionController : ControllerBase
 {
     private readonly ILogger<TransactionController> _logger;
-    private TransactionService _service; 
+    private TransactionService _service;
 
-    public TransactionController(ILogger<TransactionController> logger, TransactionService service)
+    private BuyTroopService _troopService; 
+
+    public TransactionController(ILogger<TransactionController> logger, TransactionService service, BuyTroopService troopService)
     {
         _logger = logger;
         _service = service;
+        _troopService = troopService;
     }
 
     [HttpPost("transaction")]
@@ -27,10 +30,24 @@ public class TransactionController : ControllerBase
         if (fromAccount != null && toAccount != null && amount != null) {
             bool? successful = _service.TransferMoney((int) fromAccount, (int) toAccount, (decimal) amount);
 
-            if (successful == null) return BadRequest("Unrecognized Sending Account");
-            else if (successful == false)   return BadRequest("Unrecognized Receiving Account");
-            else    return Created("", "Transaction recorded");
+            if (successful == null) return BadRequest(400);
+            else if (successful == false)   return BadRequest(400);
+            else    return Created("", 201);
         }
-        else    return BadRequest("Invalid Input");
+        else    return BadRequest(400);
+    }
+
+    [HttpPost("buytroop")]
+    public ActionResult<int> buytroop([FromBody] JsonElement json){
+        int? userID = JsonSerializer.Deserialize<int>(json.GetProperty("userID"));
+        int? numOfTroop = JsonSerializer.Deserialize<int>(json.GetProperty("numOfTroop"));
+
+        if(userID != null && numOfTroop != null){
+            int affectedRow = _troopService.BuyTroopFunc((int)userID, (int)numOfTroop);
+
+            if(affectedRow == 1) return Created("",201);
+            else return BadRequest(400);
+        }
+        else return BadRequest(400);
     }
 }

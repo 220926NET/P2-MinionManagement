@@ -3,7 +3,6 @@
   <mat-form-field appearance="fill">
     <mat-label>Enter Receiver ID</mat-label>
     <input matInput  type="number" formControlName="to">
-    
   </mat-form-field>
 
   <mat-form-field appearance="fill" floatLabel="always">
@@ -13,4 +12,24 @@
   </mat-form-field>
 
   <button mat-stroked-button (click)="transacationProcess()">Send</button>
+</form>
+
+
+<br>
+
+<!-- buy troop-->
+<form [formGroup]="buyTroopForm">
+
+  <mat-form-field appearance="fill">
+    <mat-label>curerent userID</mat-label>
+    <input matInput  type="number" formControlName="userID">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>number of Troop</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" formControlName="numOfTroop">
+    <span matPrefix>$&nbsp;</span>
+  </mat-form-field>
+
+  <button mat-stroked-button (click)="buyTroopProcess()">Send</button>
 </form>
