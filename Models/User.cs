@@ -19,18 +19,3 @@ public class User
         SavingAccounts = new();
     }
 }
-
-// public class Profile
-// {
-//     public string Username { get; private set; }
-//     public string FirstName { get; private set; }
-//     public string LastName { get; private set; }
-//     public int TroopCount { get; set; }
-
-//     public Profile(string uname, string fname, string lname, int troops) {
-//         Username = uname;
-//         FirstName = fname;
-//         LastName = lname;
-//         TroopCount = troops;
-//     }
-// }
