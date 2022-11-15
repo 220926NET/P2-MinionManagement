@@ -12,6 +12,7 @@ import { TransferFundsFormComponent } from './account-page/transfer-funds-form/t
 import { PurchaseTroopsComponent } from './raid-page/purchase-troops/purchase-troops.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AdminComponent } from './admin/admin.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 const routes: Routes = [
   //set route to login component for <route-outlet>
@@ -21,13 +22,14 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'raid', component: RaidPageComponent},
   {path: 'account', component: AccountPageComponent},
-  {path: 'account/details/', component: AccountDetailsComponent},
-  {path: 'account/overview/', component: AccountOverviewComponent},
-  {path: 'account/requestfunds/', component: RequestFundsComponent},
-  {path: 'account/transferfunds/', component: TransferFundsFormComponent},
-  {path: 'raid/purchasetroops/', component: PurchaseTroopsComponent},
+  {path: 'account/details', component: AccountDetailsComponent},
+  {path: 'account/overview', component: AccountOverviewComponent},
+  {path: 'account/requestfunds', component: RequestFundsComponent},
+  {path: 'account/transferfunds', component: TransferFundsFormComponent},
+  {path: 'raid/purchasetroops', component: PurchaseTroopsComponent},
   {path: 'userprofile', component: UserProfileComponent},
   {path: 'adminpanel', component: AdminComponent},
+  {path: 'account/transaction', component: TransactionComponent}
 ];
 
 @NgModule({
