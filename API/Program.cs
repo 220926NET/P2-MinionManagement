@@ -7,12 +7,6 @@ using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// builder.Services.AddLogging(ctx => new LoggerConfiguration().WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("dbConnection"),
-//                                                                     sinkOptions: new MSSqlServerSinkOptions{
-//                                                                                 TableName = "Logs",
-//                                                                                 AutoCreateSqlTable = true
-//                                                                     }).CreateLogger());
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("dbConnection"),
                                                                     sinkOptions: new MSSqlServerSinkOptions{
                                                                                 TableName = "Logs",
