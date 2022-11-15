@@ -2,9 +2,121 @@
 
 html,
 body {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif!important;
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+.mat-typography .mat-h1,
+.mat-typography .mat-headline,
+.mat-typography h1 {
+  font: 600 2.5rem/4rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* line-height: 1!important; don't touch */
+  letter-spacing: normal;
+  margin: 0 0 16px;
+}
+
+.mat-h2,
+.mat-title,
+.mat-typography .mat-h2,
+.mat-typography .mat-title,
+.mat-typography h2 {
+  font: 500 1.5rem/2.5rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 16px;
+}
+
+.mat-h3,
+.mat-subheading-2,
+.mat-typography .mat-h3,
+.mat-typography .mat-subheading-2,
+.mat-typography h3 {
+  font: 400 1.5rem/2rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 16px;
+}
+
+.mat-h4,
+.mat-subheading-1,
+.mat-typography .mat-h4,
+.mat-typography .mat-subheading-1,
+.mat-typography h4 {
+  font: 400 1rem/1.5rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 16px;
+}
+
+.mat-h5,
+.mat-typography .mat-h5,
+.mat-typography h5 {
+  font: 400 0.8rem/1.2rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0 0 12px;
+}
+
+.mat-h6,
+.mat-typography .mat-h6,
+.mat-typography h6 {
+  font: 400 0.6rem/1.2rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0 0 12px;
+}
+
+.mat-body-strong,
+.mat-body-2,
+.mat-typography .mat-body-strong,
+.mat-typography .mat-body-2 {
+  font: 500 1rem/1.5rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+}
+
+.mat-body,
+.mat-body-1,
+.mat-typography .mat-body,
+.mat-typography .mat-body-1,
+.mat-typography {
+  font: 400 1rem/2rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+}
+
+.mat-body p,
+.mat-body-1 p,
+.mat-typography .mat-body p,
+.mat-typography .mat-body-1 p,
+.mat-typography p {
+  margin: 0 0 20px 0;
+  line-height: 1.7rem;
+}
+
+.mat-small,
+.mat-caption,
+.mat-typography .mat-small,
+.mat-typography .mat-caption {
+  font: 400 0.8rem/1.5rem "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+}
+
+.mat-display-4,
+.mat-typography .mat-display-4 {
+  font: 300 112px/112px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.05em;
+  margin: 0 0 56px;
+}
+
+.mat-display-3,
+.mat-typography .mat-display-3 {
+  font: 400 56px/56px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.02em;
+  margin: 0 0 64px;
+}
+
+.mat-display-2,
+.mat-typography .mat-display-2 {
+  font: 400 45px/48px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.005em;
+  margin: 0 0 64px;
+}
+
+.mat-display-1,
+.mat-typography .mat-display-1 {
+  font: 400 34px/40px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 64px;
 }
