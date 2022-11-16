@@ -32,9 +32,13 @@ public interface IAccountRepo
 
     /* Read */
     int OwnerID(int account);
+    int GetChecking(int profileId);
     decimal? GetAmount(int account);
-    Dictionary<int, Dictionary<int, decimal>> GetTransactions(int account, bool sender);
+    int? GetTroops(int profileId);
+    Dictionary<int, Tuple<int, decimal>> GetTransactions(int account, bool sender);
+    int? FindOpponent(int profileId, int currentTroops);
 
     /* Update */
-    bool UpdateAmount(int account, decimal amountDiff);
+    bool ChangeAmount(int account, decimal amountDiff);
+    void UpdateTroops(int id, int newTroops);
 }
