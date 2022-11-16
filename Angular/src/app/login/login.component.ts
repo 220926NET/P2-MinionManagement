@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InternalAPIService } from '../API-Service/internal-api.service';
 //import { LoginUser } from 'src/Model/LoginUser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
 
   // dependency injection
-  constructor(private api : InternalAPIService ) { }
+  constructor(private api : InternalAPIService, private router: Router ) { }
 
   ngOnInit(): void {}
 
@@ -30,6 +31,8 @@ export class LoginComponent implements OnInit {
           username : this.loginFrom.controls['username'].value,
           password : this.loginFrom.controls['password'].value
         }).subscribe((res) => {sessionStorage.setItem("token", res['token'])});
+    alert("login successful");
+    this.router.navigate(['/']);
     }
   }
  
