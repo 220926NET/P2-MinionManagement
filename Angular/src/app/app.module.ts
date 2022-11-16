@@ -27,6 +27,7 @@ import { RegisterComponent } from './register/register.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AdminComponent } from './admin/admin.component';
 import {MatListModule} from '@angular/material/list';
+import { RaidComponent } from './raid/raid.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatListModule} from '@angular/material/list';
     LoginComponent,
     RegisterComponent,
     TransactionComponent,
-    AdminComponent
+    AdminComponent,
+    RaidComponent
 
   ],
   imports: [

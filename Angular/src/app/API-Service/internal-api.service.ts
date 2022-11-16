@@ -13,7 +13,7 @@ export class InternalAPIService {
   constructor(private http:HttpClient) { }
 
   // create new header with token
-  header = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)
+  header = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
 
   //Need to change to API deployment string
   private apiLoginURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Login';
@@ -52,6 +52,16 @@ export class InternalAPIService {
   TransactionRecords() : Observable<any>{
     console.log(sessionStorage.getItem('token'));
     return this.http.get(`https://localhost:7202/account/43`, { headers : this.header});
+  }
+
+  Raid() : Observable<any> {
+    console.log(sessionStorage.getItem('token'));
+    return this.http.get("https://localhost:7202/Account/Raid", { headers : this.header});
+   }
+
+  RaidResult(raidOpponentID? : number) : Observable<any> {
+    console.log(raidOpponentID);
     
+    return this.http.put(`https://localhost:7202/Account/Raid/${raidOpponentID}`,  { headers : this.header});
   }
 }
