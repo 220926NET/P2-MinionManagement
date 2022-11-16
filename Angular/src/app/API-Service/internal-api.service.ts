@@ -39,4 +39,20 @@ export class InternalAPIService {
   AdminRemoveMoney(data : any) : Observable<any> {
     return this.http.post(this.apiAdminRemoveMoney, data);
   }
+
+  private apiGetProfile : string = "https://minionmanagement.azurewebsites.net/Profile/userprofile";
+  GetUserProfile(data : any) : Observable<any> {
+  return this.http.get(this.apiGetProfile, data);
+  }
+
+  private apiGetAccounts : string = "https://minionmanagement.azurewebsites.net/Accounts/useraccounts";
+  GetUserAccounts(data : any) : Observable<any> {
+  return this.http.get(this.apiGetAccounts, data);
+  }
+
+  private apiGetAccountDetails : string = "https://minionmanagement.azurewebsites.net/Accounts/accountdetails";
+  GetAccountDetails(data : any) : Observable<any> {
+  return this.http.get(this.apiGetAccountDetails, data);
+  }
+
 }
