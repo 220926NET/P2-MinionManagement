@@ -22,7 +22,7 @@ public interface IProfileRepo
 {
     /* Read */
     User? GetProfile(int id);
-    Dictionary<int, decimal> GetAccounts(int id, string type);
+    Tuple<int, decimal> GetAccounts(int id, string type);
 }
 
 public interface IAccountRepo

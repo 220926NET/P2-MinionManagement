@@ -17,13 +17,13 @@ public class ProfileRepo : IProfileRepo
 
         return new User(info[0], info[1], info[2], int.Parse(info[3]));
     }
-    public Dictionary<int, decimal> GetAccounts(int id, string type) {
+    public Tuple<int, decimal> GetAccounts(int id, string type) {
         List<string>? info = _query.GetData($"SELECT * FROM System_Accounts WHERE UserID = {id} AND AccountType = '{type}';", new List<string> {"Number", "Amount"});
-        Dictionary<int, decimal> accounts = new Dictionary<int, decimal>();
+        Tuple<int, decimal> accounts = new Tuple<int, decimal>(0, 0.00m);
         
         if (info != null) {
             for (int i = 0; i < info.Count(); i += 2) {
-                accounts.Add(int.Parse(info[i]), decimal.Parse(info[i+1]));
+                accounts = new Tuple<int, decimal>(int.Parse(info[i]), decimal.Parse(info[i+1]));
             }
         }
         return accounts;
