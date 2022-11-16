@@ -41,10 +41,10 @@ public class AccountController : ControllerBase
     public ActionResult<string> Transactions(int accountNum) {
         if (HttpContext.User.HasClaim(c => c.Type == ClaimTypes.Sid)) {
             int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Sid).Value);
-            List<Dictionary<int, decimal>> transactions = _service.Transactions(accountNum, userId);
+            List<Tuple<int, decimal>> transactions = _service.Transactions(accountNum, userId);
 
             if (transactions.Count > 0) 
-                return Ok(JsonSerializer.Serialize<List<Dictionary<int,decimal>>>(transactions));
+                return Ok(JsonSerializer.Serialize<List<Tuple<int,decimal>>>(transactions));
             else    return BadRequest("User is Not Account Owner!");
         }
         else    return BadRequest("User Not Logged In!");

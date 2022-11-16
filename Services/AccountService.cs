@@ -21,14 +21,14 @@ public class AccountService
         return _repo.NewTransaction(sendingAccount, receivingAccount, amount);
     }
 
-    public List<Dictionary<int, decimal>> Transactions(int accountNumber, int userId) {
-        List<Dictionary<int, decimal>> output = new();
+    public List<Tuple<int, decimal>> Transactions(int accountNumber, int userId) {
+        List<Tuple<int, decimal>> output = new();
         // Verify that user owns account
         if (_repo.OwnerID(accountNumber) == userId) {
-            Dictionary<int, Dictionary<int, decimal>> deposits = _repo.GetTransactions(accountNumber, false);
+            Dictionary<int, Tuple<int, decimal>> deposits = _repo.GetTransactions(accountNumber, false);
             List<int> transactionIds = deposits.Keys.ToList();
 
-            Dictionary<int, Dictionary<int, decimal>> withdraws = _repo.GetTransactions(accountNumber, true);
+            Dictionary<int, Tuple<int, decimal>> withdraws = _repo.GetTransactions(accountNumber, true);
             transactionIds.AddRange(withdraws.Keys.ToList());
 
             transactionIds.Sort();
