@@ -44,4 +44,6 @@ export class InternalAPIService {
   BuyTroop(data : any) : Observable<any> {
     return this.http.post(this.apiBuyTroop, data);
   }
+
+  
 }
