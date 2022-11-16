@@ -14,16 +14,17 @@ export class RaidComponent implements OnInit {
   }
 
   raid : any; //store raid {opponent profile Id : situation}
-  raidOpponentID? : number;
+  raidOpponentID : number = -1;
 
   raidProcess(){
 
-    this.api.Raid().subscribe((res) => {this.raid = res; this.raidOpponentID=this.raid['Item1'] })
+    this.api.Raid().subscribe((res) => {this.raid = res; this.raidOpponentID=this.raid['Item1'] ; console.log(this.raidOpponentID)})
     
   
   }
 
+  raidRes : any[] = [];
   raidResult(){
-    this.api.RaidResult(this.raidOpponentID).subscribe((res) => console.log(res))
+    this.api.RaidResult(this.raidOpponentID).subscribe( (res) => {this.raidRes = res; console.log(this.raidRes)})
   }
 }

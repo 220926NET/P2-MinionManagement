@@ -13,7 +13,7 @@ export class InternalAPIService {
   constructor(private http:HttpClient) { }
 
   // create new header with token
-  header = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+  //header = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
 
   //Need to change to API deployment string
   private apiLoginURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Login';
@@ -30,38 +30,36 @@ export class InternalAPIService {
 
   private apiTransactionURL : string = "https://minionmanagement.azurewebsites.net/Transaction/transaction";
   Transaction(data : any) : Observable<any> {
-    return this.http.post(this.apiTransactionURL, data)
+    return this.http.post(this.apiTransactionURL, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)})
   }
 
   private apiAdminAddMoney : string = "https://minionmanagement.azurewebsites.net/Admin/addmoney";
   AdminAddMoney(data : any) : Observable<any> {
-    return this.http.post(this.apiAdminAddMoney, data);
+    return this.http.post(this.apiAdminAddMoney, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
   private apiAdminRemoveMoney : string = "https://minionmanagement.azurewebsites.net/Admin/removemoney";
   AdminRemoveMoney(data : any) : Observable<any> {
-    return this.http.post(this.apiAdminRemoveMoney, data);
+    return this.http.post(this.apiAdminRemoveMoney, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
   private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Transaction/buytroop";
   BuyTroop(data : any) : Observable<any> {
-    return this.http.post(this.apiBuyTroop, data);
+    return this.http.post(this.apiBuyTroop, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
-  //private apiTransactionRecord : string = `https://localhost:7202/account/${accountNum}`
-  TransactionRecords() : Observable<any>{
+  
+  TransactionRecords(accountNum : number) : Observable<any>{
     console.log(sessionStorage.getItem('token'));
-    return this.http.get(`https://localhost:7202/account/43`, { headers : this.header});
+    return this.http.get(`https://localhost:7202/account/${accountNum}`, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
   Raid() : Observable<any> {
     console.log(sessionStorage.getItem('token'));
-    return this.http.get("https://localhost:7202/Account/Raid", { headers : this.header});
+    return this.http.get("https://minionmanagement.azurewebsites.net/Account/Raid", { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
    }
 
-  RaidResult(raidOpponentID? : number) : Observable<any> {
-    console.log(raidOpponentID);
-    
-    return this.http.put(`https://localhost:7202/Account/Raid/${raidOpponentID}`,  { headers : this.header});
+  RaidResult(raidOpponentID : number) : Observable<any> {
+    return this.http.put(`https://minionmanagement.azurewebsites.net/Account/Raid/${raidOpponentID}`,raidOpponentID ,  { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 }

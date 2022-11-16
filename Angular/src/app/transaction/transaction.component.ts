@@ -54,9 +54,13 @@ export class TransactionComponent implements OnInit {
 
  records : any[] = [] ;
 
+ recordForm : FormGroup = new FormGroup({
+  accountNum : new FormControl('', [Validators.required])
+ })
+
  showTransactionRecord(){
     // need to replace with currect user account number
-     this.api.TransactionRecords().subscribe((res) => this.records = res
+     this.api.TransactionRecords(this.recordForm.controls['accountNum'].value).subscribe((res) => this.records = res
     );
     console.log(this.records);
   }
