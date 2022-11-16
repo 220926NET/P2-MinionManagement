@@ -35,10 +35,13 @@ public interface IAccountRepo
     int GetChecking(int profileId);
     decimal? GetAmount(int account);
     int? GetTroops(int profileId);
+    int? GetDeeds(int id);
     Dictionary<int, Tuple<int, decimal>> GetTransactions(int account, bool sender);
     int? FindOpponent(int profileId, int currentTroops);
 
     /* Update */
     bool ChangeAmount(int account, decimal amountDiff);
     void UpdateTroops(int id, int newTroops);
+    void AddDeed(int id);
+    void ResetDeeds(int id);
 }

@@ -94,4 +94,17 @@ public class AccountController : ControllerBase
         }
         else    return BadRequest("User Not Logged In!");
     }
+
+    [HttpPut("endMonth")]
+    public ActionResult<string> ResolveMonth() {
+        if (HttpContext.User.HasClaim(c => c.Type == ClaimTypes.Sid)) {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Sid).Value);
+            Tuple<decimal, int, int> monthReport = _service.MonthlyReport(userId);
+
+            if (monthReport != new Tuple<decimal, int, int>(0.00m, 0, 0))
+                return Ok(JsonSerializer.Serialize<Tuple<decimal, int, int>>(monthReport));
+            else    return BadRequest("Month Unresolved!");
+        }
+        else    return BadRequest("User Not Logged In!");
+    }
 }
