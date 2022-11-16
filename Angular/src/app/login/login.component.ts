@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
         }).subscribe((res) => {sessionStorage.setItem("token", res['token'])});
     alert("login successful");
     this.router.navigate(['/']);
+    console.log("bearer : " + `Bearer ${sessionStorage.getItem('token')}`);
     }
   }
- 
+
 }

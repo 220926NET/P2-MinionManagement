@@ -26,7 +26,7 @@ import {MatIcon, MatIconModule} from '@angular/material/icon'
 import { RegisterComponent } from './register/register.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AdminComponent } from './admin/admin.component';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 
 import { AccountPageComponent } from './account-page/account-page.component';
 import { MainPageComponent } from './main-page/main-page.component';

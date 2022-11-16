@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InternalAPIService } from '../API-Service/internal-api.service';
+
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor() { }
+myData: any;
+  constructor(private api : InternalAPIService) { }
 
   ngOnInit(): void {
+    if(sessionStorage.getItem('token') != null) {
+    this.api.getData().subscribe((data) => {
+      this.myData = data;
+      });
+    }
   }
+
+  logout(){
+    sessionStorage.removeItem('token');
+    console.log(sessionStorage.getItem('token'))
+  }
+
+
 
 }

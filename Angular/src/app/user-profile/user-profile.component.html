@@ -1,3 +1,35 @@
-<p>user-profile works!</p>
+<!-- <div><p>User Profile Data: {{myData | json}}</p></div> -->
+<div fxLayoutAlign="center top" fxFlexFill>
+  <!--Align to center-->
+  <mat-card fxFlex="90">
+    <!--Nested element together-->
+    <h2>User Profile</h2>
+    <table mat-table>
+      <tr  class="headerrow">
+        <td colspan="3">Profile Picture</td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <img
+            src="{{ myData.ProfilePic }}"
+            alt="random profile picture"
+            height="100"
+          />
+        </td>
+      </tr>
+      <tr class="headerrow">
+        <td>Username</td>
+        <td>Name</td>
+        <td>Troops</td>
+      </tr>
+      <tr>
+        <td>{{ myData.Username }}</td>
+        <td>{{ myData.FirstName }} {{ myData.LastName }}</td>
+        <td>{{ myData.TroopCount }}</td>
+      </tr>
+    </table>
+    <div style="margin: 30px 0 0 0;"><button routerLink="/" type="button" mat-raised-button>Edit Profile</button></div>
+  </mat-card>
+</div>
 
-{{myData | json}}
+

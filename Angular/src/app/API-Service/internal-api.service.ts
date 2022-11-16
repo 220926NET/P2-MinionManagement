@@ -59,9 +59,10 @@ export class InternalAPIService {
   return this.http.get(this.apiGetAccountDetails, data);
   }
 
-getData() {
-  return this.http.get('https://localhost:7202/Profile')
-}
+  getData() {
+    console.log(`Bearer ${sessionStorage.getItem('token')}`)
+    return this.http.get('https://localhost:7202/Profile/', { headers : this.header})
+  }
 
   private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Transaction/buytroop";
   BuyTroop(data : any) : Observable<any> {
@@ -74,4 +75,6 @@ getData() {
     return this.http.get(`https://localhost:7202/account/43`, { headers : this.header});
     
   }
+
+
 }

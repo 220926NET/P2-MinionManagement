@@ -26,8 +26,12 @@
       </ul>
 
       <ul class="d-flex navbar-nav">
+        <!-- <li *ngif="sessionStorage.getItem('token') != null"><img src="{{myData.ProfilePic}}" alt="random profile picture" height="40"/></li> -->
         <li class="nav-item">
           <a routerLink="userprofile" class="nav-link">Profile</a>
+        </li>
+        <li class="nav-item">
+          <button type="button" (click)="logout()">Logout</button>
         </li>
       </ul>
     </div>
