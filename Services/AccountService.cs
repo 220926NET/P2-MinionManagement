@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using Models;
+using DataAccess;
 
 namespace Services;
 public class AccountService
@@ -10,10 +11,10 @@ public class AccountService
 
     public bool? TransferMoney(int sendingAccount, int receivingAccount, decimal amount) {
         // Validating that accounts exist
-        if (!_repo.UpdateAmount(sendingAccount, Decimal.Negate(amount))) 
+        if (!_repo.ChangeAmount(sendingAccount, Decimal.Negate(amount))) 
             return null;
-        if (!_repo.UpdateAmount(receivingAccount, amount)) {
-            _repo.UpdateAmount(sendingAccount, amount);
+        if (!_repo.ChangeAmount(receivingAccount, amount)) {
+            _repo.ChangeAmount(sendingAccount, amount);
             return false;
         }
 
@@ -39,5 +40,49 @@ public class AccountService
             }
         }
         return output;
+    }
+
+    public Tuple<int, string> Opponent(int userId) {
+        Tuple<int, string> opponentInfo = new Tuple<int, string>(0, "");
+        int? playerTroops = _repo.GetTroops(userId);
+
+        if (playerTroops != null) {
+            int? opponent = _repo.FindOpponent(userId, (int) playerTroops);
+            if (opponent != null)   opponentInfo = new Tuple<int, string>((int) opponent, Game.CompareTroops((int) playerTroops, (int) _repo.GetTroops((int) opponent)!));
+        }
+        return opponentInfo;
+    }
+
+    public Tuple<bool, int, decimal> Raid(int user, int opponent) {
+        Tuple<bool, int, decimal> result = new Tuple<bool, int, decimal>(false, 0, 0.0m);
+        int? userTroops = _repo.GetTroops(user);
+        int? opposingTroops = _repo.GetTroops(opponent);
+        int userAccount = _repo.GetChecking(user);
+        int opponentAccount = _repo.GetChecking(opponent);
+
+        if (userTroops != null && opposingTroops != null && userAccount != 0 && opponentAccount != 0) {
+            bool win = false;
+            bool? transfer = false;
+            decimal money = 0.00m;
+
+            if (userTroops >= opposingTroops) {  // Won raid
+                win = true;
+                money = (decimal) _repo.GetAmount(opponentAccount)!;
+                transfer = TransferMoney(opponentAccount, userAccount, money);
+            }
+            else {  // Lost raid
+                win = false;
+                money = (decimal) _repo.GetAmount(userAccount)!;
+                transfer = TransferMoney(userAccount, opponentAccount, money);
+            }
+
+            if (transfer == true) { // Transaction succeeded
+                int troopsLost = Game.LostTroops(win, (int) userTroops);
+                _repo.UpdateTroops(user, (int)userTroops - troopsLost);
+
+                result = new Tuple<bool, int, decimal>(win, troopsLost, money);
+            }
+        }
+        return result;
     }
 }

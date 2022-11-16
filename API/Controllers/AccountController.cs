@@ -21,8 +21,8 @@ public class AccountController : ControllerBase
         _service = service;
     }
 
-    [HttpPost("transaction")]
-    public ActionResult<string> Transfer([FromBody] JsonElement json) {
+    [HttpPost("Transaction")]
+    public ActionResult<string> Transaction([FromBody] JsonElement json) {
         int? fromAccount = JsonSerializer.Deserialize<int>(json.GetProperty("from"));
         int? toAccount = JsonSerializer.Deserialize<int>(json.GetProperty("to"));
         decimal? amount = JsonSerializer.Deserialize<decimal>(json.GetProperty("amount"));
@@ -46,6 +46,32 @@ public class AccountController : ControllerBase
             if (transactions.Count > 0) 
                 return Ok(JsonSerializer.Serialize<List<Dictionary<int,decimal>>>(transactions));
             else    return BadRequest("User is Not Account Owner!");
+        }
+        else    return BadRequest("User Not Logged In!");
+    }
+
+    [HttpGet("Raid")]
+    public ActionResult<string> OpponentInfo() {
+        if (HttpContext.User.HasClaim(c => c.Type == ClaimTypes.Sid)) {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Sid).Value);
+            Tuple<int, string> opponent = _service.Opponent(userId);
+
+            if (opponent != new Tuple<int, string>(0, ""))
+                return Ok(JsonSerializer.Serialize<Tuple<int, string>>(opponent));
+            else    return BadRequest("No Viable Opponent Found");
+        }
+        else    return BadRequest("User Not Logged In!");
+    }
+
+    [HttpPut("Raid/{opponent}")]
+    public ActionResult<string> ResolveRaid(int opponent) {
+        if (HttpContext.User.HasClaim(c => c.Type == ClaimTypes.Sid)) {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Sid).Value);
+            Tuple<bool, int, decimal> raidResult = _service.Raid(userId, opponent);
+
+            if (raidResult != new Tuple<bool, int, decimal>(false, 0, 0.0m))
+                return Ok(JsonSerializer.Serialize<Tuple<bool, int, decimal>>(raidResult));
+            else    return BadRequest("Raid Unresolved");
         }
         else    return BadRequest("User Not Logged In!");
     }

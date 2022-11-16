@@ -1,4 +1,6 @@
-﻿namespace DataAccess;
+﻿using Models;
+
+namespace DataAccess;
 
 public class AccountRepo : IAccountRepo
 {
@@ -20,10 +22,20 @@ public class AccountRepo : IAccountRepo
         if (id == null) return 0;
         else    return int.Parse(id);
     }
+    public int GetChecking(int profileId) {
+        string? account = _query.GetValue($"SELECT Number FROM System_Accounts WHERE UserID = {profileId} AND AccountType = 'checking';", "Number");
+        if (account == null) return 0;
+        else    return int.Parse(account);
+    }
     public decimal? GetAmount(int account) {
         string? currentAmount = _query.GetValue($"SELECT Amount FROM System_Accounts WHERE Number = {account};", "Amount");
         if (currentAmount == null)  return null;
         else    return decimal.Parse(currentAmount);
+    }
+    public int? GetTroops(int profileId) {
+        string? troops = _query.GetValue($"SELECT TroopCount FROM User_Profiles WHERE ID = {profileId};", "TroopCount");
+        if (troops == null) return null;
+        else    return int.Parse(troops);
     }
     public Dictionary<int, Dictionary<int, decimal>> GetTransactions(int account, bool sender) {    // COULD also use Tuple???
         List<string>? data = _query.GetData($"SELECT * FROM System_Transactions WHERE {(sender ? $"SenderNumber = {account}" : $"ReceiverNumber = {account}")}", 
@@ -37,14 +49,35 @@ public class AccountRepo : IAccountRepo
         }
         return transfers;
     }
+    public int? FindOpponent(int profileId, int currentTroops) {
+        string? opponent = _query.GetValue($"SELECT TOP 1 * FROM User_Profiles WHERE TroopCount >= {(currentTroops - Game.RandomOpponentRange())} AND TroopCount <= {(currentTroops + Game.RandomOpponentRange())} AND ID != {profileId} ORDER BY TroopCount DESC", 
+                                                    "ID");
+        if (opponent == null) {
+            opponent = _query.GetValue($"SELECT TOP 1 * FROM User_Profiles WHERE TroopCount >= {(currentTroops - Game.OpponentTroopRange)} AND TroopCount <= {(currentTroops + Game.OpponentTroopRange)} AND ID != {profileId} ORDER BY TroopCount DESC", 
+                                                    "ID");
+            if (opponent == null) {
+                opponent = _query.GetValue($"SELECT TOP 1 * FROM User_Profiles WHERE TroopCount >= {(currentTroops - Game.OpponentTroopRange)} AND ID != {profileId} ORDER BY TroopCount ASC", 
+                                                    "ID");
+                if (opponent == null)   return null;
+            }
+        }
+        return int.Parse(opponent);
+    }
 
-    public bool UpdateAmount(int account, decimal amountDiff) {
+    public bool ChangeAmount(int account, decimal amountDiff) {
         decimal? currentAmount = GetAmount(account);
         if (currentAmount == null)  return false;
 
         decimal? newAmount = currentAmount + amountDiff;
+        if (newAmount < 0.00m)    return false;
+
         _query.SetData($"UPDATE System_Accounts SET Amount = @UpdatedAmount WHERE Number = {account};", 
                 new List<string> { "@UpdatedAmount" }, new List<string> { newAmount.ToString()! });
         return true;
+    }
+    public void UpdateTroops(int id, int newTroops) {
+        _query.SetData($"UPDATE User_Profiles SET TroopCount = @NewCount WHERE ID = @ID;",
+                new List<string> {"@NewCount", "@ID"}, new List<string> {newTroops.ToString(), id.ToString()});
+        return;
     }
 }
