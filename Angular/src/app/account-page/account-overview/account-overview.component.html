@@ -1,0 +1,16 @@
+<p>account-overview works!</p>
+<div fxLayoutAlign="center center" fxFlexFill> <!--Align to center-->
+    <mat-card fxFlex="90"> <!--Nested element together-->
+    <h1>Welcome</h1>
+    <table mat-table>
+        <tr>
+            <td>{{myData.CheckingAccounts.Item1}}</td>
+            <td>{{myData.CheckingAccounts.Item2}}</td>
+        </tr>
+        <tr>
+            <td>{{myData.SavingAccounts.Item1}}</td>
+            <td>{{myData.SavingAccounts.Item2}}</td>
+        </tr>
+    </table>
+  </mat-card>
+</div>

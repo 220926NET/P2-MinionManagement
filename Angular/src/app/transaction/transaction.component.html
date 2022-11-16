@@ -1,4 +1,7 @@
-<form [formGroup]="transactionForm">
+<div fxLayoutAlign="center center" fxFlexFill> <!--Align to center-->
+  <mat-card fxFlex="25"> <!--Nested element together-->
+  <h1>Transfer Funds</h1>
+  <form [formGroup]="transactionForm">
 
   <mat-form-field appearance="fill">
     <mat-label>Enter Receiver ID</mat-label>
@@ -32,4 +35,25 @@
   </mat-form-field>
 
   <button mat-stroked-button (click)="buyTroopProcess()">Send</button>
+</form>
+
+
+
+<!--show transaction record-->
+<form [formGroup]="recordForm">
+<br>
+  
+<mat-form-field appearance="fill">
+  <mat-label>account number</mat-label>
+  <input matInput  type="number" formControlName="accountNum">
+</mat-form-field>
+
+  <button mat-stroked-button (click)="showTransactionRecord()">show Record</button>
+  <p>Sender Account ID  : $Amount</p>
+  <div *ngFor="let record of records | keyvalue" >
+    <mat-selection-list>
+      <button mat-stroked-button>{{record.value['Item1']}}</button> 
+      <button mat-stroked-button>${{record.value['Item2']}}</button>
+    </mat-selection-list>
+  </div>
 </form>
