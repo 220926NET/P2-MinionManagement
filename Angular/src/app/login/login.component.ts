@@ -3,6 +3,7 @@ import { InternalAPIService } from '../API-Service/internal-api.service';
 //import { LoginUser } from 'src/Model/LoginUser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { firstValueFrom, observable, Observable } from 'rxjs';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  myData: any;
 
   // dependency injection
   constructor(private api : InternalAPIService, private router: Router ) { }
@@ -30,11 +31,23 @@ export class LoginComponent implements OnInit {
         this.api.Login({
           username : this.loginFrom.controls['username'].value,
           password : this.loginFrom.controls['password'].value
-        }).subscribe((res) => {sessionStorage.setItem("token", res['token'])});
-    alert("login successful");
-    this.router.navigate(['/']);
-    console.log("bearer : " + `Bearer ${sessionStorage.getItem('token')}`);
+        }).subscribe((res) => {sessionStorage.setItem("token", res['token'])
+        alert("login successful");
+        this.router.navigate(['/']);
+        console.log("bearer : " + `Bearer ${sessionStorage.getItem('token')}`);});
+    // Place Await Here
+
     }
   }
+
+  // onLogin(): void {
+  //   this.api.getData().subscribe((data) => {
+  //     this.myData = data;
+  //     });
+  //     console.log("is this thing on?");
+  //   }
+
+
+     
 
 }

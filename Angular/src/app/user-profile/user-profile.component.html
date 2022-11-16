@@ -5,7 +5,7 @@
     <!--Nested element together-->
     <h2>User Profile</h2>
     <table mat-table>
-      <tr  class="headerrow">
+      <tr class="headerrow">
         <td colspan="3">Profile Picture</td>
       </tr>
       <tr>
@@ -28,8 +28,10 @@
         <td>{{ myData.TroopCount }}</td>
       </tr>
     </table>
-    <div style="margin: 30px 0 0 0;"><button routerLink="/" type="button" mat-raised-button>Edit Profile</button></div>
+    <div style="margin: 30px 0 0 0">
+      <button routerLink="/" type="button" mat-raised-button>
+        Edit Profile
+      </button>
+    </div>
   </mat-card>
 </div>
-
-

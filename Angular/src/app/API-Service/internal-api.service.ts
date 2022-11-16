@@ -61,7 +61,7 @@ export class InternalAPIService {
 
   getData() {
     console.log(`Bearer ${sessionStorage.getItem('token')}`)
-    return this.http.get('https://localhost:7202/Profile/', { headers : this.header})
+    return this.http.get('https://localhost:7202/Profile/', { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
   private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Transaction/buytroop";
@@ -72,7 +72,7 @@ export class InternalAPIService {
   //private apiTransactionRecord : string = `https://localhost:7202/account/${accountNum}`
   TransactionRecords() : Observable<any>{
     console.log(sessionStorage.getItem('token'));
-    return this.http.get(`https://localhost:7202/account/43`, { headers : this.header});
+    return this.http.get(`https://localhost:7202/account/43`, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
     
   }
 

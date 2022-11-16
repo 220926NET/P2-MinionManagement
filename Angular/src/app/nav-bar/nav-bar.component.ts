@@ -8,15 +8,11 @@ import { InternalAPIService } from '../API-Service/internal-api.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-myData: any;
+  myData: any;
   constructor(private api : InternalAPIService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('token') != null) {
-    this.api.getData().subscribe((data) => {
-      this.myData = data;
-      });
-    }
+
   }
 
   logout(){
@@ -24,6 +20,11 @@ myData: any;
     console.log(sessionStorage.getItem('token'))
   }
 
-
+  // onRedirect(): void {
+  //   this.api.getData().subscribe((data) => {
+  //     this.myData = data;
+  //     });
+  //     console.log("is this thing on?");
+  //   }
 
 }
