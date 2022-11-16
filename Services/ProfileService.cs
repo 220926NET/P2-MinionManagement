@@ -4,7 +4,7 @@ using DataAccess;
 namespace Services;
 public class ProfileService
 {
-    private IProfileRepo _repo;
+    private readonly IProfileRepo _repo;
     public ProfileService(IProfileRepo repo) {
         _repo = repo;
     }

@@ -4,7 +4,7 @@ namespace DataAccess;
 
 internal class SqlQuery
 {
-    private ConnectionFactory _factory;
+    private readonly ConnectionFactory _factory;
     public SqlQuery(ConnectionFactory factory) {
         _factory = factory;
     }

@@ -12,7 +12,7 @@ namespace API.Controllers;
 public class AuthenticationController : ControllerBase
 {
     private readonly ILogger<AuthenticationController> _logger;
-    private AuthenticationService _service; 
+    private readonly AuthenticationService _service; 
 
     public AuthenticationController(ILogger<AuthenticationController> logger, AuthenticationService service)
     {

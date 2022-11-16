@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-//using System.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
 using DataAccess;
 using Services;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +53,6 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

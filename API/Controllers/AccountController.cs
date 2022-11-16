@@ -13,7 +13,7 @@ namespace API.Controllers;
 public class AccountController : ControllerBase
 {
     private readonly ILogger<AccountController> _logger;
-    private AccountService _service; 
+    private readonly AccountService _service; 
 
     public AccountController(ILogger<AccountController> logger, AccountService service)
     {

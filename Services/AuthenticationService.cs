@@ -8,7 +8,7 @@ using DataAccess;
 namespace Services;
 public class AuthenticationService
 {
-    private IAuthenticationRepo _repo;
+    private readonly IAuthenticationRepo _repo;
     public AuthenticationService(IAuthenticationRepo repo) {
         _repo = repo;
     }

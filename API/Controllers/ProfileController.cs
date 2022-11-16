@@ -14,7 +14,7 @@ namespace API.Controllers;
 public class ProfileController : ControllerBase
 {
     private readonly ILogger<ProfileController> _logger;
-    private ProfileService _service; 
+    private readonly ProfileService _service; 
 
     public ProfileController(ILogger<ProfileController> logger, ProfileService service)
     {
