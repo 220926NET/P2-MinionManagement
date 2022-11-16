@@ -50,4 +50,13 @@ export class TransactionComponent implements OnInit {
       numOfTroop : this.buyTroopForm.controls['numOfTroop'].value
     }).subscribe((res) => alert(res))
   }
+
+ 
+ showTransactionRecord(){
+    // need to replace with currect user account number
+    this.api.TransactionRecords().subscribe((res) => console.log(res)
+      
+    );
+    
+  }
 }

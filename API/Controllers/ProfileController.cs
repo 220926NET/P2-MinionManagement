@@ -29,13 +29,13 @@ public class ProfileController : ControllerBase
             User? userProfile = _service.ProfileInfo(userId);
 
             if (userProfile == null) {
-                return NotFound("User Profile Not Found!");
+                return NotFound("404");
             }
             else {
                 userProfile = _service.AccountsInfo(userProfile, userId);
                 return Ok(JsonSerializer.Serialize<User>(userProfile));
             }
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return BadRequest("400");
     }
 }
