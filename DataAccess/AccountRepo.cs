@@ -37,6 +37,11 @@ public class AccountRepo : IAccountRepo
         if (troops == null) return null;
         else    return int.Parse(troops);
     }
+    public int? GetDeeds(int id) {
+        string? evilDeeds = _query.GetValue($"SELECT EvilDeeds FROM User_Profiles WHERE ID = {id};", "EvilDeeds");
+        if (evilDeeds == null)  return null;
+        else    return int.Parse(evilDeeds);
+    }
     public Dictionary<int, Tuple<int, decimal>> GetTransactions(int account, bool sender) {    // COULD also use Tuple???
         List<string>? data = _query.GetData($"SELECT * FROM System_Transactions WHERE {(sender ? $"SenderNumber = {account}" : $"ReceiverNumber = {account}")}", 
                                                 new List<string> {"ID", (sender ? "ReceiverNumber" : "SenderNumber"), "Amount"});
@@ -78,6 +83,16 @@ public class AccountRepo : IAccountRepo
     public void UpdateTroops(int id, int newTroops) {
         _query.SetData($"UPDATE User_Profiles SET TroopCount = @NewCount WHERE ID = @ID;",
                 new List<string> {"@NewCount", "@ID"}, new List<string> {newTroops.ToString(), id.ToString()});
+        return;
+    }
+    public void AddDeed(int id) {
+        _query.SetData($"UPDATE User_Profiles SET EvilDeeds = EvilDeeds + 1 WHERE ID = @ID",
+                new List<string> {"@ID"}, new List<string> {id.ToString()});
+        return;
+    }
+    public void ResetDeeds(int id) {
+        _query.SetData($"UPDATE User_Profiles SET EvilDeeds = @Reset WHERE ID = @ID;", 
+                new List<string> {"@Reset", "@ID"}, new List<string> {0.ToString(), id.ToString()});
         return;
     }
 }

@@ -4,6 +4,7 @@ public static class Game
 {
     public static decimal StartingMoney = 200.00m;
     public static int StartingTroops = 20;
+    public static int DarkLordCheckingAccount = 1;
     public static decimal TroopBuyAmount = 10.00m;
     public static decimal TroopMonthlyCost = 5.00m;
     public static decimal MonthlyBaseIncome = 100.00m;
