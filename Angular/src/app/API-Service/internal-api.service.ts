@@ -60,4 +60,10 @@ getData() {
   return this.http.get('https://localhost:7202/Profile')
 }
 
+  private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Transaction/buytroop";
+  BuyTroop(data : any) : Observable<any> {
+    return this.http.post(this.apiBuyTroop, data);
+  }
+
+  
 }

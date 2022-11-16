@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InternalAPIService } from '../API-Service/internal-api.service';
-import { LoginUser } from 'src/Model/LoginUser';
+//import { LoginUser } from 'src/Model/LoginUser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
@@ -11,7 +11,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  
 
   // dependency injection
   constructor(private api : InternalAPIService ) { }
@@ -30,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.api.Login({
           username : this.loginFrom.controls['username'].value,
           password : this.loginFrom.controls['password'].value
-        }).subscribe((res) => {console.log(res)})
+        }).subscribe((res) => {sessionStorage.setItem("token", res['token'])});
     }
   }
  

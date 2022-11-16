@@ -12,13 +12,18 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
+
+    private BuyTroopService _troopService; 
+
     private readonly ILogger<AccountController> _logger;
     private AccountService _service; 
 
-    public AccountController(ILogger<AccountController> logger, AccountService service)
+    public AccountController(ILogger<AccountController> logger, AccountService service, BuyTroopService troopService)
+
     {
         _logger = logger;
         _service = service;
+        _troopService = troopService;
     }
 
     [HttpPost("transaction")]
@@ -35,6 +40,20 @@ public class AccountController : ControllerBase
             else    return Created("", 201);
         }
         else    return BadRequest(400);
+    }
+
+    [HttpPost("buytroop")]
+    public ActionResult<int> buytroop([FromBody] JsonElement json){
+        int? userID = JsonSerializer.Deserialize<int>(json.GetProperty("userID"));
+        int? numOfTroop = JsonSerializer.Deserialize<int>(json.GetProperty("numOfTroop"));
+
+        if(userID != null && numOfTroop != null){
+            int affectedRow = _troopService.BuyTroopFunc((int)userID, (int)numOfTroop);
+
+            if(affectedRow == 1) return Created("",201);
+            else return BadRequest(400);
+        }
+        else return BadRequest(400);
     }
 
     [HttpGet("{accountNum}")]

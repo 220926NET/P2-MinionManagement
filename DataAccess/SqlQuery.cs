@@ -21,7 +21,9 @@ internal class SqlQuery
 
             if (reader.HasRows) {
                 if (reader.Read()) {
+
                     value = reader[column].ToString()!;
+
                 }
             }
 
