@@ -4,19 +4,19 @@ using System.Web.Helpers;
 namespace Services.Tests;
 public class TransactionTests
 {
-    private readonly Mock<ITransactionRepo> _mockRepo;
-    private readonly TransactionService _service;
+    private readonly Mock<IAccountRepo> _mockRepo;
+    private readonly AccountService _service;
 
     public TransactionTests() {
-        _mockRepo = new Mock<ITransactionRepo>();
-        _service = new TransactionService(_mockRepo.Object);
+        _mockRepo = new Mock<IAccountRepo>();
+        _service = new AccountService(_mockRepo.Object);
     }
 
     [Fact]
     public void TransferMoney_ActionExecutes_ReturnsBoolean()
     {
         // Arrange
-        _mockRepo.Setup(repo => repo.UpdateAccountAmount(It.IsAny<int>(), It.IsAny<decimal>()))
+        _mockRepo.Setup(repo => repo.UpdateAmount(It.IsAny<int>(), It.IsAny<decimal>()))
                 .Returns(true);
         _mockRepo.Setup(repo => repo.NewTransaction(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<decimal>()))
                 .Returns(true);
@@ -25,7 +25,7 @@ public class TransactionTests
         bool? result = _service.TransferMoney(1, 2, 20.00m);
 
         // Assert
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(It.IsAny<int>(), It.IsAny<decimal>()), Times.Exactly(2));
+        _mockRepo.Verify(repo => repo.UpdateAmount(It.IsAny<int>(), It.IsAny<decimal>()), Times.Exactly(2));
         _mockRepo.Verify(repo => repo.NewTransaction(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<decimal>()), Times.Once());
         Assert.IsType<bool>(result);
     }
@@ -34,7 +34,7 @@ public class TransactionTests
     public void TransferMoney_ActionExecutes_WithValidDbParams_ReturnsTrue()
     {
         // Arrange
-        _mockRepo.Setup(repo => repo.UpdateAccountAmount(It.IsAny<int>(), It.IsAny<decimal>()))
+        _mockRepo.Setup(repo => repo.UpdateAmount(It.IsAny<int>(), It.IsAny<decimal>()))
                 .Returns(true);
         _mockRepo.Setup(repo => repo.NewTransaction(1, 2, 20.00m))
                 .Returns(true);
@@ -43,8 +43,8 @@ public class TransactionTests
         bool? result = _service.TransferMoney(1, 2, 20.00m);
 
         // Assert
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(1, -20.00m), Times.Once());
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(2, 20.00m), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateAmount(1, -20.00m), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateAmount(2, 20.00m), Times.Once());
         _mockRepo.Verify(repo => repo.NewTransaction(1, 2, 20.00m), Times.Once());
         Assert.IsType<bool>(result);
         Assert.Equal(true, result);
@@ -54,14 +54,14 @@ public class TransactionTests
     public void TransferMoney_ActionExecutes_WithSenderNotInDb_ReturnsNull()
     {
         // Arrange
-        _mockRepo.Setup(repo => repo.UpdateAccountAmount(-1, It.IsAny<decimal>()))
+        _mockRepo.Setup(repo => repo.UpdateAmount(-1, It.IsAny<decimal>()))
                 .Returns(false);
 
         // Act
         bool? result = _service.TransferMoney(-1, 2, 20.00m);
 
         // Assert
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(It.IsAny<int>(), It.IsAny<decimal>()), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateAmount(It.IsAny<int>(), It.IsAny<decimal>()), Times.Once());
         _mockRepo.Verify(repo => repo.NewTransaction(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<decimal>()), Times.Never());
         Assert.Equal(null, result);
     }
@@ -70,18 +70,18 @@ public class TransactionTests
     public void TransferMoney_ActionExecutes_WithReceiverNotInDb_ReturnsFalse()
     {
         // Arrange
-        _mockRepo.Setup(repo => repo.UpdateAccountAmount(1, It.IsAny<decimal>()))
+        _mockRepo.Setup(repo => repo.UpdateAmount(1, It.IsAny<decimal>()))
                 .Returns(true);
-        _mockRepo.Setup(repo => repo.UpdateAccountAmount(-2, It.IsAny<decimal>()))
+        _mockRepo.Setup(repo => repo.UpdateAmount(-2, It.IsAny<decimal>()))
                 .Returns(false);
 
         // Act
         bool? result = _service.TransferMoney(1, -2, 20.00m);
 
         // Assert
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(1, -20.00m), Times.Once());
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(-2, 20.00m), Times.Once());
-        _mockRepo.Verify(repo => repo.UpdateAccountAmount(1, 20.00m), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateAmount(1, -20.00m), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateAmount(-2, 20.00m), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateAmount(1, 20.00m), Times.Once());
         _mockRepo.Verify(repo => repo.NewTransaction(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<decimal>()), Times.Never());
         Assert.IsType<bool>(result);
         Assert.Equal(false, result);
