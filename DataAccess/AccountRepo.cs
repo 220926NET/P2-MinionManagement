@@ -37,14 +37,14 @@ public class AccountRepo : IAccountRepo
         if (troops == null) return null;
         else    return int.Parse(troops);
     }
-    public Dictionary<int, Dictionary<int, decimal>> GetTransactions(int account, bool sender) {    // COULD also use Tuple???
+    public Dictionary<int, Tuple<int, decimal>> GetTransactions(int account, bool sender) {    // COULD also use Tuple???
         List<string>? data = _query.GetData($"SELECT * FROM System_Transactions WHERE {(sender ? $"SenderNumber = {account}" : $"ReceiverNumber = {account}")}", 
                                                 new List<string> {"ID", (sender ? "ReceiverNumber" : "SenderNumber"), "Amount"});
-        Dictionary<int, Dictionary<int, decimal>> transfers = new();
+        Dictionary<int, Tuple<int, decimal>> transfers = new();
         if (data != null) {
             for (int i = 0; i < data.Count(); i += 3) {
                 decimal amount = decimal.Parse(data[i+2]);
-                transfers.Add(int.Parse(data[i]), new Dictionary<int, decimal>(){{int.Parse(data[i+1]), (sender ? Decimal.Negate(amount) : amount)}});
+                transfers.Add(int.Parse(data[i]), new Tuple<int, decimal>(int.Parse(data[i+1]), (sender ? Decimal.Negate(amount) : amount)));
             }
         }
         return transfers;

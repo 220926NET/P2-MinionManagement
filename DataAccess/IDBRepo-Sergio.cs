@@ -35,7 +35,7 @@ public interface IAccountRepo
     int GetChecking(int profileId);
     decimal? GetAmount(int account);
     int? GetTroops(int profileId);
-    Dictionary<int, Dictionary<int, decimal>> GetTransactions(int account, bool sender);
+    Dictionary<int, Tuple<int, decimal>> GetTransactions(int account, bool sender);
     int? FindOpponent(int profileId, int currentTroops);
 
     /* Update */
