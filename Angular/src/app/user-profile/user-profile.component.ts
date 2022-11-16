@@ -20,12 +20,5 @@ export class UserProfileComponent implements OnInit {
       });
       console.log("is this thing on?");
   }
-
-    // onLogin(): void {
-    // this.api.getData().subscribe((data) => {
-    //   this.myData = data;
-    //   });
-    //   console.log("is this thing on?");
-    // }
   
 }
