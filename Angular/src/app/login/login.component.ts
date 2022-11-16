@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InternalAPIService } from '../API-Service/internal-api.service';
-import { LoginUser } from 'src/Model/LoginUser';
+//import { LoginUser } from 'src/Model/LoginUser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
