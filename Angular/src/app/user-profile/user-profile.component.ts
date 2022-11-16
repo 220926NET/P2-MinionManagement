@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InternalAPIService } from '../API-Service/internal-api.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
-  constructor() { }
+myData: any;
+  constructor(private api : InternalAPIService) { }
 
   ngOnInit(): void {
+    this.api.getData().subscribe((data) => {
+      this.myData = data;
+      });
   }
+
+
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { catchError, Observable, throwError } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class InternalAPIService {
   
 
   // dependency injection
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   //Need to change to API deployment string
   private apiLoginURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Login';
@@ -40,12 +41,12 @@ export class InternalAPIService {
     return this.http.post(this.apiAdminRemoveMoney, data);
   }
 
-  private apiGetProfile : string = "https://minionmanagement.azurewebsites.net/Profile/userprofile";
+  private apiGetProfile : string = "https://localhost:7202/Profile";
   GetUserProfile(data : any) : Observable<any> {
   return this.http.get(this.apiGetProfile, data);
   }
 
-  private apiGetAccounts : string = "https://minionmanagement.azurewebsites.net/Accounts/useraccounts";
+  private apiGetAccounts : string = "https://localhost:7202/Account";
   GetUserAccounts(data : any) : Observable<any> {
   return this.http.get(this.apiGetAccounts, data);
   }
@@ -54,5 +55,9 @@ export class InternalAPIService {
   GetAccountDetails(data : any) : Observable<any> {
   return this.http.get(this.apiGetAccountDetails, data);
   }
+
+getData() {
+  return this.http.get('https://localhost:7202/Profile')
+}
 
 }
