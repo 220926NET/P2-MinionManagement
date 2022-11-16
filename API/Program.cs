@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using System.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 using DataAccess;
 using Services;
 
@@ -7,16 +9,27 @@ using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("dbConnection"),
+                                                                    sinkOptions: new MSSqlServerSinkOptions{
+                                                                                TableName = "Logs",
+                                                                                AutoCreateSqlTable = true
+                                                                    }));
 builder.Services.AddScoped<ConnectionFactory>(ctx => new ConnectionFactory(builder.Configuration.GetConnectionString("dbConnection")));
-builder.Services.AddScoped<IAdminRepo, AdminRepo>();
-builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<IAuthenticationRepo, AuthenticationRepo>();
 builder.Services.AddScoped<AuthenticationService>();
-builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
-builder.Services.AddScoped<TransactionService>();
+
+// builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
+// builder.Services.AddScoped<TransactionService>();
 builder.Services.AddScoped<BuyTroopService>();
 builder.Services.AddScoped<BuyTroopRepo>();
+
+builder.Services.AddScoped<IAdminRepo, AdminRepo>();
+builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<IProfileRepo, ProfileRepo>();
+builder.Services.AddScoped<ProfileService>();
+builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+builder.Services.AddScoped<AccountService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -60,6 +73,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 app.UseHttpsRedirection();
+
+// Applies JWT Authentication Middleware
+app.UseAuthentication();
 
 app.UseAuthorization();
 
