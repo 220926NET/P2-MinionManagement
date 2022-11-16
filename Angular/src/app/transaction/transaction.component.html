@@ -45,7 +45,8 @@
 <p>Sender Account ID  : $Amount</p>
 <div *ngFor="let record of records | keyvalue" >
   <mat-selection-list>
-    <button mat-stroked-button>{{record.value | json}}</button>
+    <button mat-stroked-button>{{record.value['Item1']}}</button> 
+    <button mat-stroked-button>${{record.value['Item2']}}</button>
   </mat-selection-list>
 </div>
 

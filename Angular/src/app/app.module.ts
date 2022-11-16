@@ -27,6 +27,7 @@ import { RegisterComponent } from './register/register.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AdminComponent } from './admin/admin.component';
 import { MatListModule } from '@angular/material/list';
+import { RaidComponent } from './raid/raid.component';
 
 import { AccountPageComponent } from './account-page/account-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -55,7 +56,8 @@ import { RaidPageComponent } from './raid-page/raid-page.component';
     RequestFundsComponent,
     PurchaseTroopsComponent,
     RaidPageComponent,
-    AdminComponent
+    AdminComponent,
+    RaidComponent
 
   ],
   imports: [
