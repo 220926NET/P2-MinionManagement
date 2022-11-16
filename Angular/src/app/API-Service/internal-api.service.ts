@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http'
+import { HttpClient, HttpHeaders} from '@angular/common/http'
 import { catchError, Observable, throwError } from 'rxjs';
 
 
@@ -12,6 +12,9 @@ export class InternalAPIService {
 
   // dependency injection
   constructor(private http: HttpClient) { }
+
+  // create new header with token
+  header = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)
 
   //Need to change to API deployment string
   private apiLoginURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Login';
@@ -65,5 +68,10 @@ getData() {
     return this.http.post(this.apiBuyTroop, data);
   }
 
-  
+  //private apiTransactionRecord : string = `https://localhost:7202/account/${accountNum}`
+  TransactionRecords() : Observable<any>{
+    console.log(sessionStorage.getItem('token'));
+    return this.http.get(`https://localhost:7202/account/43`, { headers : this.header});
+    
+  }
 }
