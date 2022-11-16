@@ -39,6 +39,11 @@
 <!--show transaction record-->
 <br>
 <button mat-stroked-button (click)="showTransactionRecord()">show Record</button>
-<
+<p>Sender Account ID  : $Amount</p>
+<div *ngFor="let record of records | keyvalue" >
+  <mat-selection-list>
+    <button mat-stroked-button>{{record.value | json}}</button>
+  </mat-selection-list>
+</div>
 
 <br>

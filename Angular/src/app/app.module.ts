@@ -26,6 +26,7 @@ import {MatIcon, MatIconModule} from '@angular/material/icon'
 import { RegisterComponent } from './register/register.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AdminComponent } from './admin/admin.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { AdminComponent } from './admin/admin.component';
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

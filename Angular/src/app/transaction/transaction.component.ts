@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InternalAPIService } from '../API-Service/internal-api.service';
 
+
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
@@ -51,12 +52,12 @@ export class TransactionComponent implements OnInit {
     }).subscribe((res) => alert(res))
   }
 
- 
+ records : any[] = [] ;
+
  showTransactionRecord(){
     // need to replace with currect user account number
-    this.api.TransactionRecords().subscribe((res) => console.log(res)
-      
+     this.api.TransactionRecords().subscribe((res) => this.records = res
     );
-    
+    console.log(this.records);
   }
 }
