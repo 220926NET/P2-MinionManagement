@@ -1,3 +1,5 @@
+using Models;
+
 namespace DataAccess;
 
 public class AuthenticationRepo : IAuthenticationRepo
@@ -37,6 +39,11 @@ public class AuthenticationRepo : IAuthenticationRepo
         else    return int.Parse(id);
     }
 
+    public void InitialTroops(int id) {
+        _query.SetData($"UPDATE User_Profiles SET TroopCount = @NewCount WHERE ID = @ID;",
+                new List<string> {"@NewCount", "@ID"}, new List<string> {Game.StartingTroops.ToString(), id.ToString()});
+        return;
+    }
     public void UpdateUsername(string oldUsername, string newUsername) {
         _query.SetData("UPDATE User_Login SET UserName = @NewUname WHERE UserName = @OldUname;",
                         new List<string> {"@OldUname", "@NewUname"}, new List<string> {oldUsername, newUsername});

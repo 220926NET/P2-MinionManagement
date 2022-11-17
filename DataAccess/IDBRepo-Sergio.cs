@@ -14,6 +14,7 @@ public interface IAuthenticationRepo
     int UserId(string username);
 
     /* Update */
+    void InitialTroops(int id);
     void UpdateUsername(string oldUsername, string newUsername);
     void UpdatePassword(string username, string newPassword);
 }
@@ -23,6 +24,9 @@ public interface IProfileRepo
     /* Read */
     User? GetProfile(int id);
     Tuple<int, decimal> GetAccounts(int id, string type);
+
+    /* Update */
+    void UpdateProfile(int id, User changed);
 }
 
 public interface IAccountRepo

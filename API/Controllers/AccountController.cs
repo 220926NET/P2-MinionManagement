@@ -16,10 +16,10 @@ public class AccountController : ControllerBase
     private BuyTroopService _troopService; 
 
     private readonly ILogger<AccountController> _logger;
-    private AccountService _service; 
+    private readonly AccountService _service; 
+    private readonly BuyTroopService _troopService;
 
     public AccountController(ILogger<AccountController> logger, AccountService service, BuyTroopService troopService)
-
     {
         _logger = logger;
         _service = service;
@@ -28,32 +28,39 @@ public class AccountController : ControllerBase
 
     [HttpPost("Transaction")]
     public ActionResult<string> Transaction([FromBody] JsonElement json) {
-        int? fromAccount = JsonSerializer.Deserialize<int>(json.GetProperty("from"));
-        int? toAccount = JsonSerializer.Deserialize<int>(json.GetProperty("to"));
-        decimal? amount = JsonSerializer.Deserialize<decimal>(json.GetProperty("amount"));
+        if (HttpContext.User.HasClaim(c => c.Type == ClaimTypes.Sid)) {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Sid).Value);
+            int? fromAccount = JsonSerializer.Deserialize<int>(json.GetProperty("from"));
+            int? toAccount = JsonSerializer.Deserialize<int>(json.GetProperty("to"));
+            decimal? amount = JsonSerializer.Deserialize<decimal>(json.GetProperty("amount"));
 
-        if (fromAccount != null && toAccount != null && amount != null) {
-            bool? successful = _service.TransferMoney((int) fromAccount, (int) toAccount, (decimal) amount);
+            if (fromAccount != null && toAccount != null && amount != null) {
+                bool? successful = _service.TransferMoney((int) fromAccount, (int) toAccount, (decimal) amount);
 
-            if (successful == null) return BadRequest(400);
-            else if (successful == false)   return BadRequest(400);
-            else    return Created("", 201);
+                if (successful == null) return BadRequest("Unrecognized Sending Account");
+                else if (successful == false)   return BadRequest("Unrecognized Receiving Account");
+                else    return Created("", "Transaction recorded");
+            }
+            else    return BadRequest("Invalid Input");
         }
-        else    return BadRequest(400);
+        else    return BadRequest("User Not Logged In!");
     }
 
     [HttpPost("buytroop")]
     public ActionResult<int> buytroop([FromBody] JsonElement json){
-        int? userID = JsonSerializer.Deserialize<int>(json.GetProperty("userID"));
-        int? numOfTroop = JsonSerializer.Deserialize<int>(json.GetProperty("numOfTroop"));
+        if (HttpContext.User.HasClaim(c => c.Type == ClaimTypes.Sid)) {
+            int userId = int.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Sid).Value);
+            int? numOfTroop = JsonSerializer.Deserialize<int>(json.GetProperty("numOfTroop"));
 
-        if(userID != null && numOfTroop != null){
-            int affectedRow = _troopService.BuyTroopFunc((int)userID, (int)numOfTroop);
+            if(numOfTroop != null){
+                int affectedRow = _troopService.BuyTroopFunc((int)userId, (int)numOfTroop);
 
-            if(affectedRow == 1) return Created("",201);
+                if(affectedRow == 1) return Created("",201);
+                else return BadRequest(400);
+            }
             else return BadRequest(400);
         }
-        else return BadRequest(400);
+        else    return BadRequest("User Not Logged In!");
     }
 
     [HttpGet("{accountNum}")]

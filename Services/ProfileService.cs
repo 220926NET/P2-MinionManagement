@@ -4,7 +4,7 @@ using DataAccess;
 namespace Services;
 public class ProfileService
 {
-    private IProfileRepo _repo;
+    private readonly IProfileRepo _repo;
     public ProfileService(IProfileRepo repo) {
         _repo = repo;
     }
@@ -18,5 +18,10 @@ public class ProfileService
         user.CheckingAccounts = _repo.GetAccounts(userId, "checking");
         user.SavingAccounts = _repo.GetAccounts(userId, "saving");
         return user;
+    }
+
+    public User? ChangeInfo(int userId, User changes) {
+        _repo.UpdateProfile(userId, changes);
+        return ProfileInfo(userId);
     }
 }

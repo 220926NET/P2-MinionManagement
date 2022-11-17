@@ -4,7 +4,7 @@ using DataAccess;
 namespace Services;
 public class AccountService
 {
-    private IAccountRepo _repo;
+    private readonly IAccountRepo _repo;
     public AccountService(IAccountRepo repo) {
         _repo = repo;
     }

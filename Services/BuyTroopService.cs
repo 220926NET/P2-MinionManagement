@@ -1,10 +1,9 @@
 using DataAccess;
 
 namespace Services;
-
 public class BuyTroopService
 {
-    private BuyTroopRepo _buyTroopRepo;
+    private readonly BuyTroopRepo _buyTroopRepo;
     public BuyTroopService(BuyTroopRepo buyTroopRepo){
         _buyTroopRepo = buyTroopRepo;
     }

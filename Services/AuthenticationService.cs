@@ -8,7 +8,7 @@ using DataAccess;
 namespace Services;
 public class AuthenticationService
 {
-    private IAuthenticationRepo _repo;
+    private readonly IAuthenticationRepo _repo;
     public AuthenticationService(IAuthenticationRepo repo) {
         _repo = repo;
     }
@@ -17,7 +17,8 @@ public class AuthenticationService
         if (!_repo.UsernameExists(username)) {
             string hash = Crypto.HashPassword(password);
             _repo.NewLogIn(username, hash);
-            _repo.NewProfile(username);
+            _repo.InitialTroops(_repo.UserId(username));
+            //_repo.NewProfile(username);
             return true;
         }
         return false;
