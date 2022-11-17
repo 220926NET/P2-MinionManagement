@@ -28,4 +28,10 @@ public class ProfileRepo : IProfileRepo
         }
         return accounts;
     }
+
+    public void UpdateProfile(int id, User changed) {
+        _query.SetData($"UPDATE User_Profiles SET FirstName = @FName, LastName = @LName WHERE ID = @ID",
+                new List<string> {"@FName", "@LName", "@ID"}, new List<string> {changed.FirstName, changed.LastName, id.ToString()});
+        return;
+    }
 }

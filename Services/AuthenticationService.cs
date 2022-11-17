@@ -17,6 +17,7 @@ public class AuthenticationService
         if (!_repo.UsernameExists(username)) {
             string hash = Crypto.HashPassword(password);
             _repo.NewLogIn(username, hash);
+            _repo.InitialTroops(_repo.UserId(username));
             //_repo.NewProfile(username);
             return true;
         }
