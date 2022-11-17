@@ -29,14 +29,15 @@ public class ProfileController : ControllerBase
             User? userProfile = _service.ProfileInfo(userId);
 
             if (userProfile == null) {
-                return NotFound("User Profile Not Found!");
+                _logger.LogError($"Unable to retrive profile information for UserID={userId}");
+                return NotFound(404);
             }
             else {
                 userProfile = _service.AccountsInfo(userProfile, userId);
                 return Ok(JsonSerializer.Serialize<User>(userProfile));
             }
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 
     [HttpPut]
@@ -51,10 +52,10 @@ public class ProfileController : ControllerBase
                 if (newProfile != null)
                     return Ok(JsonSerializer.Serialize<User>(newProfile));
                 else
-                    return BadRequest("Unable to Implement Changes");
+                    return BadRequest(400);
             }
-            else    return BadRequest("Invalid Changes");
+            else    return BadRequest(400);
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 }
