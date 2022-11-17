@@ -22,12 +22,11 @@ export class InternalAPIService {
   Login(data: any) : Observable<any> {
     return this.http.post(this.apiLoginURL, data);
   }
-
+  
   private apiRegisterURL : string = 'https://minionmanagement.azurewebsites.net/Authentication/Register';
   Register(data: any): Observable<any> {
     return this.http.post(this.apiRegisterURL,data)
   }
-
 
   private apiTransactionURL : string = "https://minionmanagement.azurewebsites.net/Transaction/transaction";
   Transaction(data : any) : Observable<any> {
@@ -44,21 +43,6 @@ export class InternalAPIService {
     return this.http.post(this.apiAdminRemoveMoney, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
-  private apiGetProfile : string = "https://localhost:7202/Profile";
-  GetUserProfile(data : any) : Observable<any> {
-  return this.http.get(this.apiGetProfile, data);
-  }
-
-  private apiGetAccounts : string = "https://localhost:7202/Account";
-  GetUserAccounts(data : any) : Observable<any> {
-  return this.http.get(this.apiGetAccounts, data);
-  }
-
-  private apiGetAccountDetails : string = "https://minionmanagement.azurewebsites.net/Accounts/accountdetails";
-  GetAccountDetails(data : any) : Observable<any> {
-  return this.http.get(this.apiGetAccountDetails, data);
-  }
-
   getData() {
     console.log(`Bearer ${sessionStorage.getItem('token')}`)
     return this.http.get('https://localhost:7202/Profile/', { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
@@ -68,7 +52,6 @@ export class InternalAPIService {
   BuyTroop(data : any) : Observable<any> {
     return this.http.post(this.apiBuyTroop, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
-
   
   TransactionRecords(accountNum : number) : Observable<any>{
     console.log(sessionStorage.getItem('token'));
@@ -83,6 +66,5 @@ export class InternalAPIService {
   RaidResult(raidOpponentID : number) : Observable<any> {
     return this.http.put(`https://minionmanagement.azurewebsites.net/Account/Raid/${raidOpponentID}`,raidOpponentID ,  { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
-
 
 }
