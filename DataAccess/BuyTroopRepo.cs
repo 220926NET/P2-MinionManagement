@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using Models;
 
 namespace DataAccess;
 
@@ -17,7 +18,8 @@ public class BuyTroopRepo
 
         // Deduct money from checking account
         // setting each troop cost $10
-        SqlCommand command = new SqlCommand($"UPDATE System_Accounts SET Amount = Amount - 10*@numOfTroop WHERE UserID = @userID AND AccountType= 'checking' AND Amount >= 10*@numOfTroop", connection);
+        int troopCost = (int) Game.TroopBuyAmount;
+        SqlCommand command = new SqlCommand($"UPDATE System_Accounts SET Amount = Amount - {troopCost}*@numOfTroop WHERE UserID = @userID AND AccountType= 'checking' AND Amount >= {troopCost}*@numOfTroop", connection);
         command.Parameters.AddWithValue("@numOfTroop", numOfTroop);
         command.Parameters.AddWithValue("@userID", userID);
 
@@ -32,7 +34,7 @@ public class BuyTroopRepo
             if(affectRow == 1){
 
                 //Update transaction record
-                command.CommandText = $"INSERT INTO System_Transactions VALUES((SELECT Number FROM System_Accounts WHERE UserID = @userID AND AccountType = 'checking'), 1, 10*@numOfTroop)";
+                command.CommandText = $"INSERT INTO System_Transactions VALUES((SELECT Number FROM System_Accounts WHERE UserID = @userID AND AccountType = 'checking'), 1, {troopCost}*@numOfTroop)";
                 
 
                 affectRow = command.ExecuteNonQuery();

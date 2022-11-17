@@ -19,4 +19,9 @@ public class ProfileService
         user.SavingAccounts = _repo.GetAccounts(userId, "saving");
         return user;
     }
+
+    public User? ChangeInfo(int userId, User changes) {
+        _repo.UpdateProfile(userId, changes);
+        return ProfileInfo(userId);
+    }
 }

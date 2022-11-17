@@ -2,10 +2,10 @@ namespace Models;
 
 public class User
 {
-    public string Username { get; private set; }
-    public string ProfilePic { get; private set; }
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
+    public string Username { get; set; }
+    public string ProfilePic { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public int TroopCount { get; set; }
     
     public Tuple<int, decimal> CheckingAccounts { get; set; }
