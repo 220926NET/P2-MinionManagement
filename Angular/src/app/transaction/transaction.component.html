@@ -4,7 +4,12 @@
   <form [formGroup]="transactionForm">
 
   <mat-form-field appearance="fill">
-    <mat-label>Enter Receiver ID</mat-label>
+    <mat-label>Sender account number</mat-label>
+      <input matInput  type="number" formControlName="from">
+    </mat-form-field>
+
+  <mat-form-field appearance="fill">
+  <mat-label>Receiver account number</mat-label>
     <input matInput  type="number" formControlName="to">
   </mat-form-field>
 &nbsp;
@@ -35,7 +40,7 @@
     <span matPrefix>&nbsp;</span>
   </mat-form-field>
 
-  <button mat-stroked-button (click)="buyTroopProcess()">Send</button>
+  <button mat-stroked-button (click)="buyTroopProcess()">Show</button>
 </form>
 
 
