@@ -126,11 +126,26 @@ describe('InternalAPIService', () => {
     httpMockController.verify;
   })
 
+// Testing getData function
+it('should send GET request to Profile', () =>{
+  const mockedRes : number = 201;
+  service.getData().subscribe((res) => {
+    expect(res).toEqual(mockedRes)
+  })
+
+  const req = httpMockController.expectOne(
+    "https://minionmanagement.azurewebsites.net/Profile/"
+  );
+  expect(req.request.method).toBe('GET');
+  req.flush(mockedRes);
+  httpMockController.verify;
+})
+
   // testing Raid function
   it('should send GET request to Raid', () =>{
     const mockedRes : number = 201;
     service.Raid().subscribe((res) => {
-      expect((res).toEqual(mockedRes))
+      expect(res).toEqual(mockedRes)
     })
 
     const req = httpMockController.expectOne(
@@ -145,7 +160,7 @@ describe('InternalAPIService', () => {
   it('should send OUT request to Raid', () => {
     const mockedRes : number = 200;
     service.RaidResult(1).subscribe((res) => {
-      expect((res).toEqual(mockedRes))
+      expect(res).toEqual(mockedRes)
     })
 
     const req = httpMockController.expectOne(

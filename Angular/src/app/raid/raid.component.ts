@@ -13,7 +13,7 @@ export class RaidComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  raid : any; //store raid {opponent profile Id : situation}
+  raid : any = {"Item1":123,"Item2":"placeholder"}; //store raid {opponent profile Id : situation}
   raidOpponentID : number = -1;
   Item1 : any;
 
