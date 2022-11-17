@@ -1,10 +1,18 @@
-<form [formGroup]="transactionForm">
+<div fxLayoutAlign="center center" fxFlexFill> <!--Align to center-->
+  <mat-card fxFlex="470px"> <!--Nested element together-->
+  <h2>Transfer Funds</h2>
+  <form [formGroup]="transactionForm">
 
   <mat-form-field appearance="fill">
-    <mat-label>Enter Receiver ID</mat-label>
+    <mat-label>Sender account number</mat-label>
+      <input matInput  type="number" formControlName="from">
+    </mat-form-field>
+
+  <mat-form-field appearance="fill">
+  <mat-label>Receiver account number</mat-label>
     <input matInput  type="number" formControlName="to">
   </mat-form-field>
-
+&nbsp;
   <mat-form-field appearance="fill" floatLabel="always">
     <mat-label>Amount</mat-label>
     <input matInput type="number" class="example-right-align" placeholder="0" formControlName="amount">
@@ -18,18 +26,39 @@
 <br>
 
 <!-- buy troop-->
+<h2>Purchase Troops</h2>
 <form [formGroup]="buyTroopForm">
 
   <mat-form-field appearance="fill">
-    <mat-label>curerent userID</mat-label>
+    <mat-label>Current user ID</mat-label>
     <input matInput  type="number" formControlName="userID">
   </mat-form-field>
-
+  &nbsp;
   <mat-form-field appearance="fill" floatLabel="always">
-    <mat-label>number of Troop</mat-label>
+    <mat-label>Number of Troops</mat-label>
     <input matInput type="number" class="example-right-align" placeholder="0" formControlName="numOfTroop">
-    <span matPrefix>$&nbsp;</span>
+    <span matPrefix>&nbsp;</span>
   </mat-form-field>
 
-  <button mat-stroked-button (click)="buyTroopProcess()">Send</button>
+  <button mat-stroked-button (click)="buyTroopProcess()">Show</button>
+</form>
+
+
+
+<!--show transaction record-->
+<form [formGroup]="recordForm">
+<br>
+
+<h2>Transaction Records</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Account Number</mat-label>
+  <input matInput  type="number" formControlName="accountNum">
+</mat-form-field>
+&nbsp;
+  <button mat-stroked-button (click)="showTransactionRecord()">show Record</button>
+  <div><span class="transactionItem1">Sender's Account ID</span><span class="transactionItem2">Amount</span></div>
+  <div *ngFor="let record of records | keyvalue" >
+      <span class="transactionItem1">{{record.value['Item1']}}</span> 
+      <span class="transactionItem2">{{record.value['Item2'] | currency}}</span>
+  </div>
 </form>
