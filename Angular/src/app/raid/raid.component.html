@@ -1,0 +1,24 @@
+
+<button mat-stroked-button (click)="raidProcess()">Raid</button>
+<div>
+    <mat-selection-list>
+    <button mat-stroked-button>Opponent ID :{{raid['Item1']}}</button>
+    <button mat-stroked-button>situation :{{raid['Item2']}}</button> 
+    </mat-selection-list>
+</div>
+
+<br>
+
+<button mat-stroked-button (click)="raidResult()">Raid Result</button>
+<div *ngFor="let result of raidRes | keyvalue">
+    <mat-selection-list>
+        <li>{{result.value}}</li>
+    </mat-selection-list>
+    <p>
+        Item 1 is a bool, true if the user won & false if they lost the raid
+
+        Item 2 is an int that is how many troops the user lost in the raid
+
+        Item 3 is a decimal that is how much money the user won/lost in the raid
+    </p>
+</div>

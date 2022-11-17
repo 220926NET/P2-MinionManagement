@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { InternalAPIService } from '../API-Service/internal-api.service';
 import { TransactionComponent } from './transaction.component';
+import { HttpClient} from '@angular/common/http'
 
 describe('TransactionComponent', () => {
   let component: TransactionComponent;
@@ -8,7 +9,7 @@ describe('TransactionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransactionComponent ]
+      declarations: [ TransactionComponent ],
     })
     .compileComponents();
 

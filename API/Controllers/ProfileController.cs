@@ -29,15 +29,14 @@ public class ProfileController : ControllerBase
             User? userProfile = _service.ProfileInfo(userId);
 
             if (userProfile == null) {
-                _logger.LogError($"Unable to retrive profile information for UserID={userId}");
-                return NotFound(404);
+                return NotFound("404");
             }
             else {
                 userProfile = _service.AccountsInfo(userProfile, userId);
                 return Ok(JsonSerializer.Serialize<User>(userProfile));
             }
         }
-        else    return Unauthorized(401);
+        else    return BadRequest("400");
     }
 
     [HttpPut]
