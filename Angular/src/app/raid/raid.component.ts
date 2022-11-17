@@ -15,6 +15,7 @@ export class RaidComponent implements OnInit {
 
   raid : any; //store raid {opponent profile Id : situation}
   raidOpponentID : number = -1;
+  Item1 : any;
 
   raidProcess(){
 
