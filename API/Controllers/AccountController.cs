@@ -34,13 +34,13 @@ public class AccountController : ControllerBase
             if (fromAccount != null && toAccount != null && amount != null) {
                 bool? successful = _service.TransferMoney((int) fromAccount, (int) toAccount, (decimal) amount);
 
-                if (successful == null) return BadRequest("Unrecognized Sending Account");
-                else if (successful == false)   return BadRequest("Unrecognized Receiving Account");
-                else    return Created("", "Transaction recorded");
+                if (successful == null) return BadRequest(400);
+                else if (successful == false)   return BadRequest(400);
+                else    return Created("", 201);
             }
-            else    return BadRequest("Invalid Input");
+            else    return BadRequest(400);
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 
     [HttpPost("buytroop")]
@@ -57,7 +57,7 @@ public class AccountController : ControllerBase
             }
             else return BadRequest(400);
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 
     [HttpGet("{accountNum}")]
@@ -68,9 +68,12 @@ public class AccountController : ControllerBase
 
             if (transactions.Count > 0) 
                 return Ok(JsonSerializer.Serialize<List<Tuple<int,decimal>>>(transactions));
-            else    return BadRequest("User is Not Account Owner!");
+            else {
+                _logger.LogWarning($"Unauthorized attemp to access transactions of account={accountNum} by UserID={userId}");
+                return BadRequest(400);
+            }
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 
     [HttpGet("Raid")]
@@ -81,9 +84,12 @@ public class AccountController : ControllerBase
 
             if (opponent != new Tuple<int, string>(0, ""))
                 return Ok(JsonSerializer.Serialize<Tuple<int, string>>(opponent));
-            else    return BadRequest("No Viable Opponent Found");
+            else {
+                _logger.LogError($"Unable to find raiding opponent for UserID={userId}");
+                return BadRequest(400);
+            }
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 
     [HttpPut("Raid/{opponent}")]
@@ -94,9 +100,12 @@ public class AccountController : ControllerBase
 
             if (raidResult != new Tuple<bool, int, decimal>(false, 0, 0.0m))
                 return Ok(JsonSerializer.Serialize<Tuple<bool, int, decimal>>(raidResult));
-            else    return BadRequest("Raid Unresolved");
+            else {
+                _logger.LogWarning($"Unable to resolve raid by UserID={userId} on opponentID={opponent}");
+                return BadRequest(400);
+            }
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 
     [HttpPut("endMonth")]
@@ -107,8 +116,11 @@ public class AccountController : ControllerBase
 
             if (monthReport != new Tuple<decimal, int, int>(0.00m, 0, 0))
                 return Ok(JsonSerializer.Serialize<Tuple<decimal, int, int>>(monthReport));
-            else    return BadRequest("Month Unresolved!");
+            else {
+                _logger.LogError($"Unable to resolve monthly income/expenses for UserID={userId}");
+                return BadRequest(400);
+            }
         }
-        else    return BadRequest("User Not Logged In!");
+        else    return Unauthorized(401);
     }
 }
