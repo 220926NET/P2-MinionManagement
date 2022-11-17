@@ -12,12 +12,9 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
-
-    private BuyTroopService _troopService; 
-
     private readonly ILogger<AccountController> _logger;
     private readonly AccountService _service; 
-    // private readonly BuyTroopService _troopService;
+    private readonly BuyTroopService _troopService;
 
     public AccountController(ILogger<AccountController> logger, AccountService service, BuyTroopService troopService)
     {
