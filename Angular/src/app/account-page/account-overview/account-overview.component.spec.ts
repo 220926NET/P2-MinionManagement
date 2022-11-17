@@ -8,7 +8,8 @@ describe('AccountOverviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AccountOverviewComponent ]
+      declarations: [ AccountOverviewComponent ],
+
     })
     .compileComponents();
 
