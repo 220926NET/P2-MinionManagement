@@ -28,7 +28,7 @@ export class InternalAPIService {
   }
 
 
-  private apiTransactionURL : string = "https://minionmanagement.azurewebsites.net/Transaction/transaction";
+  private apiTransactionURL : string = "https://minionmanagement.azurewebsites.net/Account/Transaction";
   Transaction(data : any) : Observable<any> {
     return this.http.post(this.apiTransactionURL, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)})
   }
@@ -43,7 +43,7 @@ export class InternalAPIService {
     return this.http.post(this.apiAdminRemoveMoney, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
-  private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Transaction/buytroop";
+  private apiBuyTroop :  string = "https://minionmanagement.azurewebsites.net/Account/buytroop";
   BuyTroop(data : any) : Observable<any> {
     return this.http.post(this.apiBuyTroop, data, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
@@ -51,7 +51,7 @@ export class InternalAPIService {
   
   TransactionRecords(accountNum : number) : Observable<any>{
     console.log(sessionStorage.getItem('token'));
-    return this.http.get(`https://localhost:7202/account/${accountNum}`, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
+    return this.http.get(`https://minionmanagement.azurewebsites.net/account/${accountNum}`, { headers : new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`)});
   }
 
   Raid() : Observable<any> {
