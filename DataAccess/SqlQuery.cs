@@ -4,7 +4,7 @@ namespace DataAccess;
 
 internal class SqlQuery
 {
-    private ConnectionFactory _factory;
+    private readonly ConnectionFactory _factory;
     public SqlQuery(ConnectionFactory factory) {
         _factory = factory;
     }
@@ -21,9 +21,7 @@ internal class SqlQuery
 
             if (reader.HasRows) {
                 if (reader.Read()) {
-
                     value = reader[column].ToString()!;
-
                 }
             }
 
